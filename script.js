@@ -19,26 +19,48 @@ function searchTools() {
     });
 }
 
-// 3. أداة لوحة الرسم الاحترافية واللمس
+// ====== 3. أداة لوحة الرسم الاحترافية (كمبيوتر + موبايل) ======
 const canvas = document.getElementById('paintCanvas');
 const ctx = canvas.getContext('2d');
 let drawing = false;
 
-canvas.addEventListener('mousedown', () => drawing = true);
+// إعدادات الخط ثابتة
+ctx.lineWidth = 3;
+ctx.lineCap = 'round';
+ctx.strokeStyle = '#4361ee';
+
+// --- أحداث الكمبيوتر (الماوس) ---
+canvas.addEventListener('mousedown', (e) => { drawing = true; draw(e); });
 canvas.addEventListener('mouseup', () => { drawing = false; ctx.beginPath(); });
 canvas.addEventListener('mousemove', draw);
 
+// --- أحداث الموبايل (اللمس) ---
+canvas.addEventListener('touchstart', (e) => { 
+    drawing = true; 
+    draw(e.touches[0]); 
+    e.preventDefault(); // تمنع الشاشة من التحرك أثناء الرسم
+}, { passive: false });
+
+canvas.addEventListener('touchend', () => { drawing = false; ctx.beginPath(); });
+
+canvas.addEventListener('touchmove', (e) => { 
+    draw(e.touches[0]); 
+    e.preventDefault(); 
+}, { passive: false });
+
+// دالة الرسم المشتركة والنظيفة بدون تكرار
 function draw(e) {
     if (!drawing) return;
-    ctx.lineWidth = 3;
-    ctx.lineCap = 'round';
-    ctx.strokeStyle = '#4361ee';
-
     const rect = canvas.getBoundingClientRect();
-    ctx.lineTo(e.clientX - rect.left, e.clientY - rect.top);
+    
+    // حساب الإحداثيات بدقة حسب نوع الجهاز
+    const clientX = e.clientX || e.pageX;
+    const clientY = e.clientY || e.pageY;
+
+    ctx.lineTo(clientX - rect.left, clientY - rect.top);
     ctx.stroke();
     ctx.beginPath();
-    ctx.moveTo(e.clientX - rect.left, e.clientY - rect.top);
+    ctx.moveTo(clientX - rect.left, clientY - rect.top);
 }
 
 function clearCanvas() { ctx.clearRect(0, 0, canvas.width, canvas.height); }
