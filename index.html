@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>بوابة الأدوات البرمجية العالمية</title>
+    <link rel="stylesheet" href="https://cloudflare.com">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="top-bar">
+        <!-- أداة الساعة الحية -->
+        <div id="liveClock" class="live-clock"><i class="fa-regular fa-clock"></i> 00:00:00</div>
+        <button id="themeToggle" class="btn-theme"><i class="fa-solid fa-moon"></i> الوضع الداكن</button>
+    </div>
+
+    <header class="main-header">
+        <h1><i class="fa-solid fa-wand-magic-sparkles"></i> منصة الأدوات الخارقة 2026</h1>
+        <p>المنصة العربية الأولى للأدوات البرمجية المؤتمتة</p>
+        <!-- شريط البحث المتقدم -->
+        <div class="search-wrapper">
+            <input type="text" id="toolSearch" placeholder="🔍 ابحث عن أداة معينة (مثال: وزن، عملة، رسم)..." oninput="searchTools()">
+        </div>
+    </header>
+
+    <div class="container" id="toolsContainer">
+        <!-- 1. الحاسبة الصحية -->
+        <div class="tool-card" data-keywords="وزن طول صحة رجيم bmi">
+            <h3><i class="fa-solid fa-heart-pulse"></i> حاسبة مؤشر كتلة الجسم (BMI)</h3>
+            <div class="input-group">
+                <input type="number" id="weight" placeholder="الوزن بالكيلوغرام">
+                <input type="number" id="height" placeholder="الطول بالسنتيمتر">
+            </div>
+            <button onclick="calculateBMI()" class="btn-primary">احسب حالتك الصحية</button>
+            <div id="bmiResult" class="output-box"></div>
+        </div>
+
+        <!-- 2. عداد الكلمات الذكي -->
+        <div class="tool-card" data-keywords="نص كلمات حروف كتابة مقال">
+            <h3><i class="fa-solid fa-file-lines"></i> محلل ومحرر النصوص الذكي</h3>
+            <textarea id="textInput" placeholder="اكتب أو الصق نصك هنا..." oninput="analyzeText()"></textarea>
+            <div class="stats-grid">
+                <div class="stat-item">الحروف: <span id="charCount">0</span></div>
+                <div class="stat-item">الكلمات: <span id="wordCount">0</span></div>
+            </div>
+        </div>
+
+        <!-- 3. مولد كلمات المرور -->
+        <div class="tool-card" data-keywords="امان كلمة سر حماية اختراق باسورد">
+            <h3><i class="fa-solid fa-lock"></i> مُولد كلمات المرور الآمنة</h3>
+            <button onclick="generatePassword()" class="btn-success">توليد كلمة سر</button>
+            <div class="password-container">
+                <div id="passwordResult" class="output-box password-field">اضغط توليد...</div>
+                <button onclick="copyPassword()" class="btn-copy"><i class="fa-solid fa-copy"></i></button>
+            </div>
+        </div>
+
+        <!-- 4. محول العملات السريع -->
+        <div class="tool-card" data-keywords="فلوس مال عملة دولار دينار جنيه">
+            <h3><i class="fa-solid fa-money-bill-transfer"></i> محول العملات التلقائي</h3>
+            <input type="number" id="amount" placeholder="المبلغ بالدولار ($)" oninput="convertCurrency()">
+            <div class="currency-grid">
+                <div class="currency-item">بالدينار العراقي: <span id="iqdResult">0</span> د.ع</div>
+                <div class="currency-item">بالجنيه المصري: <span id="egpResult">0</span> ج.م</div>
+            </div>
+        </div>
+
+        <!-- 5. الأداة المتقدمة الجديدة: لوحة الرسم والتوقيع -->
+        <div class="tool-card" data-keywords="رسم توقيع صورة تحميل الوان">
+            <h3><i class="fa-solid fa-pen-ruler"></i> لوحة الرسم والتوقيع الرقمي</h3>
+            <canvas id="paintCanvas" width="300" height="150"></canvas>
+            <div class="canvas-controls">
+                <button onclick="clearCanvas()" class="btn-danger">مسح</button>
+                <button onclick="downloadCanvas()" class="btn-primary">تحميل الرسمة</button>
+            </div>
+        </div>
+    </div>
+
+    <footer class="main-footer">
+        <p>&copy; 2026 جميع الحقوق محفوظة لمنصتك العالمية الفاخرة.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
