@@ -69,15 +69,32 @@
             </div>
         </div>
 
-        <!-- 5. الأداة المتقدمة الجديدة: لوحة الرسم والتوقيع -->
-        <div class="tool-card" data-keywords="رسم توقيع صورة تحميل الوان">
-            <h3><i class="fa-solid fa-pen-ruler"></i> لوحة الرسم والتوقيع الرقمي</h3>
-            <canvas id="paintCanvas" width="300" height="150"></canvas>
-            <div class="canvas-controls">
-                <button onclick="clearCanvas()" class="btn-danger">مسح</button>
-                <button onclick="downloadCanvas()" class="btn-primary">تحميل الرسمة</button>
-            </div>
+        <!-- 5. لوحة الرسم والتوقيع الاحترافية المطورة -->
+<div class="tool-card" data-keywords="رسم توقيع صورة تحميل الوان قلم">
+    <h3><i class="fa-solid fa-pen-ruler"></i> لوحة الرسم والتوقيع الرقمي</h3>
+    
+    <!-- أدوات التحكم الجديدة بالألوان والحجم -->
+    <div class="canvas-tools-bar">
+        <div class="colors-picker">
+            <button onclick="changeColor('#000000')" style="background:#000000;" class="color-dot active"></button>
+            <button onclick="changeColor('#4361ee')" style="background:#4361ee;" class="color-dot"></button>
+            <button onclick="changeColor('#e63946')" style="background:#e63946;" class="color-dot"></button>
+            <button onclick="changeColor('#2ec4b6')" style="background:#2ec4b6;" class="color-dot"></button>
         </div>
+        <div class="brush-size">
+            <label><i class="fa-solid fa-paint-brush"></i> الحجم:</label>
+            <input type="range" id="brushSlider" min="1" max="15" value="3" oninput="changeSize(this.value)">
+        </div>
+    </div>
+
+    <canvas id="paintCanvas" width="300" height="150"></canvas>
+    
+    <div class="canvas-controls">
+        <button onclick="clearCanvas()" class="btn-danger">مسح</button>
+        <button onclick="downloadCanvas()" class="btn-primary">تحميل الرسمة</button>
+    </div>
+</div>
+
     </div>
 
     <footer class="main-footer">
