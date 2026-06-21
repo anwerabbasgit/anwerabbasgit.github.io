@@ -114,3 +114,58 @@ button {
 .timer-controls button {
     flex: 1;
 }
+/* تنسيقات بطاقة الهوية الرقمية */
+.id-card-box {
+    background: linear-gradient(135deg, #1d3557, #457b9d);
+    color: white;
+    padding: 20px;
+    border-radius: 15px;
+    text-align: left;
+    position: relative;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    margin-top: 15px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.1);
+}
+.card-chip {
+    width: 35px;
+    height: 25px;
+    background: linear-gradient(135deg, #e63946, #ffb703);
+    border-radius: 5px;
+    margin-bottom: 15px;
+}
+.card-logo {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-weight: bold;
+    font-size: 14px;
+    letter-spacing: 1px;
+    color: #f1faee;
+}
+.card-name {
+    font-size: 22px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    margin-bottom: 5px;
+    text-transform: uppercase;
+    color: #fff;
+    min-height: 28px;
+}
+.card-game {
+    font-size: 14px;
+    color: #a8dadc;
+    font-weight: 500;
+    margin-bottom: 15px;
+}
+.card-status {
+    font-size: 11px;
+    letter-spacing: 1px;
+    color: #e63946;
+    font-weight: bold;
+    background: rgba(255,255,255,0.9);
+    padding: 3px 8px;
+    border-radius: 4px;
+    display: inline-block;
+}
