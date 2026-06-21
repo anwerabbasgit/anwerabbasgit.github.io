@@ -191,4 +191,72 @@ function resetTimer() {
     document.getElementById('btnStartTimer').style.display = 'block';
     document.getElementById('btnPauseTimer').style.display = 'none';
 }
+// ====== 7. أداة مولد بطاقات الألعاب والبروفايل (Gamer ID Builder) ======
+function updateGamerCard() {
+    const nameInput = document.getElementById('gamerName').value;
+    const gameSelect = document.getElementById('gameType').value;
+    const cardBox = document.getElementById('idCardBox');
+
+    // تحديث النصوص بصرياً داخل الكارت
+    document.getElementById('cardNameDisplay').innerText = nameInput.trim() === "" ? "YOUR NAME" : nameInput;
+    document.getElementById('cardGameDisplay').innerText = gameSelect;
+
+    // تغيير ألوان الكارت ديناميكياً حسب اللعبة المختارة لمظهر خرافي
+    if (gameSelect === "PUBG Mobile") {
+        cardBox.style.background = "linear-gradient(135deg, #2b2d42, #8d99ae)";
+    } else if (gameSelect === "Fortnite") {
+        cardBox.style.background = "linear-gradient(135deg, #7209b7, #f72585)";
+    } else if (gameSelect === "Call of Duty") {
+        cardBox.style.background = "linear-gradient(135deg, #111111, #333333)";
+    } else if (gameSelect === "Anime Fan") {
+        cardBox.style.background = "linear-gradient(135deg, #ff4d6d, #ffb3c1)";
+    }
+}
+
+function downloadGamerCard() {
+    const name = document.getElementById('gamerName').value || "Gamer";
+    // استخدام طريقة برمجية ذكية لتحويل الـ HTML Canvas الخاص بالبطاقة وتحميلها
+    const canvasCard = document.createElement('canvas');
+    canvasCard.width = 400;
+    canvasCard.height = 220;
+    const ctxCard = canvasCard.getContext('2d');
+
+    // رسم خلفية الكارت على الـ Canvas بناءً على اللعبة لحفظها كصورة حقيقية
+    const gameSelect = document.getElementById('gameType').value;
+    let grad = ctxCard.createLinearGradient(0, 0, 400, 220);
+    if (gameSelect === "PUBG Mobile") { grad.addColorStop(0, '#2b2d42'); grad.addColorStop(1, '#8d99ae'); }
+    else if (gameSelect === "Fortnite") { grad.addColorStop(0, '#7209b7'); grad.addColorStop(1, '#f72585'); }
+    else if (gameSelect === "Call of Duty") { grad.addColorStop(0, '#111111'); grad.addColorStop(1, '#333333'); }
+    else { grad.addColorStop(0, '#ff4d6d'); grad.addColorStop(1, '#ffb3c1'); }
+
+    ctxCard.fillStyle = grad;
+    ctxCard.fillRect(0, 0, 400, 220);
+
+    // رسم الشريحة الإلكترونية والنصوص داخل الصورة المحملة
+    ctxCard.fillStyle = "#ffb703";
+    ctxCard.fillRect(30, 30, 45, 30);
+
+    ctxCard.fillStyle = "#ffffff";
+    ctxCard.font = "bold 14px sans-serif";
+    ctxCard.fillText("GAMER ID", 300, 45);
+
+    ctxCard.font = "bold 24px sans-serif";
+    ctxCard.fillText(name.toUpperCase(), 30, 110);
+
+    ctxCard.fillStyle = "#a8dadc";
+    ctxCard.font = "16px sans-serif";
+    ctxCard.fillText(gameSelect, 30, 145);
+
+    ctxCard.fillStyle = "#ffffff";
+    ctxCard.fillRect(30, 170, 140, 22);
+    ctxCard.fillStyle = "#e63946";
+    ctxCard.font = "bold 11px sans-serif";
+    ctxCard.fillText("STATUS: PRO VERIFIED", 35, 185);
+
+    // عملية التحميل
+    const link = document.createElement('a');
+    link.download = `${name}-GamerID.png`;
+    link.href = canvasCard.toDataURL();
+    link.click();
+}
 
