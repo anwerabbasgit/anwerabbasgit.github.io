@@ -19,41 +19,60 @@ function searchTools() {
     });
 }
 
-// ====== 3. أداة لوحة الرسم الاحترافية (كمبيوتر + موبايل) ======
+// ====== 3. أداة لوحة الرسم الاحترافية المطورة (كمبيوتر + موبايل) ======
 const canvas = document.getElementById('paintCanvas');
 const ctx = canvas.getContext('2d');
 let drawing = false;
 
-// إعدادات الخط ثابتة
-ctx.lineWidth = 3;
-ctx.lineCap = 'round';
-ctx.strokeStyle = '#4361ee';
+// الإعدادات الافتراضية للفرشاة
+let currentBrushColor = '#000000';
+let currentBrushSize = 3;
+
+function initContext() {
+    ctx.lineWidth = currentBrushSize;
+    ctx.lineCap = 'round';
+    ctx.strokeStyle = currentBrushColor;
+}
+
+// تغيير الألوان ديناميكياً
+function changeColor(color) {
+    currentBrushColor = color;
+    // تحديث النقطة النشطة بصرياً
+    document.querySelectorAll('.color-dot').forEach(dot => {
+        dot.classList.remove('active');
+        if(dot.style.backgroundColor === color || dot.getAttribute('style').includes(color)) {
+            dot.classList.add('active');
+        }
+    });
+}
+
+// تغيير الحجم ديناميكياً
+function changeSize(size) {
+    currentBrushSize = size;
+}
 
 // --- أحداث الكمبيوتر (الماوس) ---
-canvas.addEventListener('mousedown', (e) => { drawing = true; draw(e); });
+canvas.addEventListener('mousedown', (e) => { drawing = true; initContext(); draw(e); });
 canvas.addEventListener('mouseup', () => { drawing = false; ctx.beginPath(); });
 canvas.addEventListener('mousemove', draw);
 
 // --- أحداث الموبايل (اللمس) ---
 canvas.addEventListener('touchstart', (e) => { 
     drawing = true; 
+    initContext();
     draw(e.touches[0]); 
-    e.preventDefault(); // تمنع الشاشة من التحرك أثناء الرسم
+    e.preventDefault(); 
 }, { passive: false });
 
 canvas.addEventListener('touchend', () => { drawing = false; ctx.beginPath(); });
-
 canvas.addEventListener('touchmove', (e) => { 
     draw(e.touches[0]); 
     e.preventDefault(); 
 }, { passive: false });
 
-// دالة الرسم المشتركة والنظيفة بدون تكرار
 function draw(e) {
     if (!drawing) return;
     const rect = canvas.getBoundingClientRect();
-    
-    // حساب الإحداثيات بدقة حسب نوع الجهاز
     const clientX = e.clientX || e.pageX;
     const clientY = e.clientY || e.pageY;
 
@@ -66,7 +85,7 @@ function draw(e) {
 function clearCanvas() { ctx.clearRect(0, 0, canvas.width, canvas.height); }
 function downloadCanvas() {
     const link = document.createElement('a');
-    link.download = 'signature.png';
+    link.download = 'my-signature.png';
     link.href = canvas.toDataURL();
     link.click();
 }
@@ -103,7 +122,6 @@ function convertCurrency() {
     }
 }
 
-// تشغيل الوضع الداكن
 document.getElementById('themeToggle').addEventListener('click', () => {
     const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? '' : 'dark';
     document.documentElement.setAttribute('data-theme', theme);
