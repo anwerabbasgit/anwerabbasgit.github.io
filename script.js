@@ -126,15 +126,15 @@ document.getElementById('themeToggle').addEventListener('click', () => {
     const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? '' : 'dark';
     document.documentElement.setAttribute('data-theme', theme);
 });
-// ====== 6. أداة مؤقت التركيز والدراسة (Pomodoro Timer) ======
+// ====== 6. أداة مؤقت التركيز المخصص (Custom Timer) ======
 let countdown;
-let timeLeft = 25 * 60; // 25 دقيقة بالثواني
+let timeLeft;
 let isRunning = false;
+let isPaused = false;
 
 function updateTimerDisplay() {
     const minutes = Math.floor(timeLeft / 60);
     const seconds = timeLeft % 60;
-    // إضافة صفر على اليسار إذا كانت الأرقام أقل من 10
     const displayMinutes = minutes < 10 ? '0' + minutes : minutes;
     const displaySeconds = seconds < 10 ? '0' + seconds : seconds;
     document.getElementById('timerDisplay').innerText = `${displayMinutes}:${displaySeconds}`;
@@ -142,9 +142,21 @@ function updateTimerDisplay() {
 
 function startTimer() {
     if (isRunning) return;
+
+    // إذا لم يكن المؤقت موقوفاً مؤقتاً، نأخذ القيمة الجديدة من المستخدم
+    if (!isPaused) {
+        const inputMinutes = parseInt(document.getElementById('customMinutes').value);
+        if (!inputMinutes || inputMinutes <= 0) {
+            alert("⚠️ يرجى إدخال عدد دقائق صحيح!");
+            return;
+        }
+        timeLeft = inputMinutes * 60;
+    }
+
     isRunning = true;
+    isPaused = false;
     
-    // تبديل الأزرار بصرياً
+    // تبديل الأزرار
     document.getElementById('btnStartTimer').style.display = 'none';
     document.getElementById('btnPauseTimer').style.display = 'block';
 
@@ -155,7 +167,7 @@ function startTimer() {
         if (timeLeft <= 0) {
             clearInterval(countdown);
             isRunning = false;
-            alert("🎉 انتهى وقت التركيز! خذ قسطاً من الراحة الآن (5 دقائق).");
+            alert("⏰ انتهى الوقت المحدد!");
             resetTimer();
         }
     }, 1000);
@@ -164,6 +176,7 @@ function startTimer() {
 function pauseTimer() {
     clearInterval(countdown);
     isRunning = false;
+    isPaused = true;
     document.getElementById('btnStartTimer').style.display = 'block';
     document.getElementById('btnPauseTimer').style.display = 'none';
 }
@@ -171,8 +184,11 @@ function pauseTimer() {
 function resetTimer() {
     clearInterval(countdown);
     isRunning = false;
-    timeLeft = 25 * 60; // إعادة تعيين لـ 25 دقيقة
+    isPaused = false;
+    const inputMinutes = parseInt(document.getElementById('customMinutes').value) || 25;
+    timeLeft = inputMinutes * 60;
     updateTimerDisplay();
     document.getElementById('btnStartTimer').style.display = 'block';
     document.getElementById('btnPauseTimer').style.display = 'none';
 }
+
