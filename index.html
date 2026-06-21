@@ -94,6 +94,19 @@
         <button onclick="downloadCanvas()" class="btn-primary">تحميل الرسمة</button>
     </div>
 </div>
+        <!-- 6. الأداة السادسة الجديدة: مؤقت التركيز والدراسة (Pomodoro) -->
+        <div class="tool-card" data-keywords="مؤقت وقت دراسة تركيز ساعة بومودورو timer focus">
+            <h3><i class="fa-solid fa-hourglass-half"></i> مؤقت التركيز والدراسة (بومودورو)</h3>
+            <p>اضبط وقتك: 25 دقيقة للعمل والدراسة، متبوعة بـ 5 دقائق راحة.</p>
+            
+            <div class="timer-display" id="timerDisplay">25:00</div>
+            
+            <div class="timer-controls">
+                <button onclick="startTimer()" id="btnStartTimer" class="btn-success"><i class="fa-solid fa-play"></i> ابدأ</button>
+                <button onclick="pauseTimer()" id="btnPauseTimer" class="btn-primary" style="display:none;"><i class="fa-solid fa-pause"></i> إيقاف مؤقت</button>
+                <button onclick="resetTimer()" class="btn-danger"><i class="fa-solid fa-rotate-left"></i> إعادة ضبط</button>
+            </div>
+        </div>
 
     </div>
 
