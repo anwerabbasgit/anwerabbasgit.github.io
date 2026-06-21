@@ -197,11 +197,9 @@ function updateGamerCard() {
     const gameSelect = document.getElementById('gameType').value;
     const cardBox = document.getElementById('idCardBox');
 
-    // تحديث النصوص بصرياً داخل الكارت
     document.getElementById('cardNameDisplay').innerText = nameInput.trim() === "" ? "YOUR NAME" : nameInput;
     document.getElementById('cardGameDisplay').innerText = gameSelect;
 
-    // تغيير ألوان الكارت ديناميكياً حسب اللعبة المختارة لمظهر خرافي
     if (gameSelect === "PUBG Mobile") {
         cardBox.style.background = "linear-gradient(135deg, #2b2d42, #8d99ae)";
     } else if (gameSelect === "Fortnite") {
@@ -215,48 +213,48 @@ function updateGamerCard() {
 
 function downloadGamerCard() {
     const name = document.getElementById('gamerName').value || "Gamer";
-    // استخدام طريقة برمجية ذكية لتحويل الـ HTML Canvas الخاص بالبطاقة وتحميلها
     const canvasCard = document.createElement('canvas');
     canvasCard.width = 400;
     canvasCard.height = 220;
     const ctxCard = canvasCard.getContext('2d');
 
-    // رسم خلفية الكارت على الـ Canvas بناءً على اللعبة لحفظها كصورة حقيقية
     const gameSelect = document.getElementById('gameType').value;
-    let grad = ctxCard.createLinearGradient(0, 0, 400, 220);
-    if (gameSelect === "PUBG Mobile") { grad.addColorStop(0, '#2b2d42'); grad.addColorStop(1, '#8d99ae'); }
-    else if (gameSelect === "Fortnite") { grad.addColorStop(0, '#7209b7'); grad.addColorStop(1, '#f72585'); }
-    else if (gameSelect === "Call of Duty") { grad.addColorStop(0, '#111111'); grad.addColorStop(1, '#333333'); }
-    else { grad.addColorStop(0, '#ff4d6d'); grad.addColorStop(1, '#ffb3c1'); }
-
-    ctxCard.fillStyle = grad;
+    
+    // كود حماية وتوافقية لتشغيل الألوان على الكمبيوتر والموبايل معاً
+    ctxCard.fillStyle = "#111111"; 
+    if (gameSelect === "PUBG Mobile") { ctxCard.fillStyle = "#2b2d42"; }
+    else if (gameSelect === "Fortnite") { ctxCard.fillStyle = "#7209b7"; }
+    else if (gameSelect === "Anime Fan") { ctxCard.fillStyle = "#ff4d6d"; }
+    
     ctxCard.fillRect(0, 0, 400, 220);
 
-    // رسم الشريحة الإلكترونية والنصوص داخل الصورة المحملة
+    // رسم الشريحة والنصوص بشكل متوافق عالمياً
     ctxCard.fillStyle = "#ffb703";
     ctxCard.fillRect(30, 30, 45, 30);
 
     ctxCard.fillStyle = "#ffffff";
-    ctxCard.font = "bold 14px sans-serif";
-    ctxCard.fillText("GAMER ID", 300, 45);
+    ctxCard.font = "bold 14px Arial, sans-serif";
+    ctxCard.fillText("GAMER ID", 300, 50);
 
-    ctxCard.font = "bold 24px sans-serif";
+    ctxCard.font = "bold 24px Arial, sans-serif";
     ctxCard.fillText(name.toUpperCase(), 30, 110);
 
     ctxCard.fillStyle = "#a8dadc";
-    ctxCard.font = "16px sans-serif";
+    ctxCard.font = "16px Arial, sans-serif";
     ctxCard.fillText(gameSelect, 30, 145);
 
     ctxCard.fillStyle = "#ffffff";
-    ctxCard.fillRect(30, 170, 140, 22);
+    ctxCard.fillRect(30, 165, 150, 25);
     ctxCard.fillStyle = "#e63946";
-    ctxCard.font = "bold 11px sans-serif";
-    ctxCard.fillText("STATUS: PRO VERIFIED", 35, 185);
+    ctxCard.font = "bold 11px Arial, sans-serif";
+    ctxCard.fillText("STATUS: PRO VERIFIED", 38, 182);
 
-    // عملية التحميل
     const link = document.createElement('a');
     link.download = `${name}-GamerID.png`;
-    link.href = canvasCard.toDataURL();
+    link.href = canvasCard.toDataURL('image/png');
+    document.body.appendChild(link); // إضافة السطر البرمجي المفقود لتوافقية الكمبيوتر
     link.click();
+    document.body.removeChild(link);
 }
+
 
