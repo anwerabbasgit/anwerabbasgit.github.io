@@ -112,6 +112,35 @@
                 <button onclick="resetTimer()" class="btn-danger"><i class="fa-solid fa-rotate-left"></i> إعادة ضبط</button>
             </div>
         </div>
+        <!-- 7. الأداة السابعة: مولد بطاقات ألعاب وبروفايل احترافي -->
+        <div class="tool-card" data-keywords="بطاقة هوية العاب بروفايل كارت ببجي فورتنايت جيمر gamer id card generator">
+            <h3><i class="fa-solid fa-id-card"></i> مُولد بطاقات الجيمرز والبروفايل</h3>
+            <p>اصنع بطاقة هوية ألعاب خاصة بك باسمك وحملها كصورة:</p>
+            
+            <div class="input-group">
+                <input type="text" id="gamerName" placeholder="أدخل اسمك المستعار (Gamer Name)" oninput="updateGamerCard()">
+            </div>
+            
+            <div class="input-group">
+                <select id="gameType" onchange="updateGamerCard()" style="width: 100%; padding: 12px; border-radius: 8px; background: var(--bg-color); color: var(--text-color); border: 1px solid #ced4da;">
+                    <option value="PUBG Mobile">ببجي موبايل (PUBG)</option>
+                    <option value="Fortnite">فورتنايت (Fortnite)</option>
+                    <option value="Call of Duty">كول اوف ديوتي (COD)</option>
+                    <option value="Anime Fan">عشاق الأنمي (Anime style)</option>
+                </select>
+            </div>
+            
+            <!-- لوحة عرض البطاقة بصرياً قبل التحميل -->
+            <div id="idCardBox" class="id-card-box">
+                <div class="card-chip"></div>
+                <div class="card-logo">🎮 GAMER ID</div>
+                <div id="cardNameDisplay" class="card-name">YOUR NAME</div>
+                <div id="cardGameDisplay" class="card-game">PUBG Mobile</div>
+                <div class="card-status">STATUS: PRO VERIFIED</div>
+            </div>
+            
+            <button onclick="downloadGamerCard()" class="btn-success" style="margin-top: 15px;"><i class="fa-solid fa-download"></i> تحميل البطاقة كصورة</button>
+        </div>
 
 
     </div>
