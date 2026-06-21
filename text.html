@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>محلل النصوص ومولد كلمات المرور | أدوات ذكية</title>
+    <link rel="stylesheet" href="https://cloudflare.com">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="top-bar"><a href="index.html" style="color: #4361ee; text-decoration: none; font-weight: bold;">← العودة للرئيسية</a></div>
+    
+    <div class="container" style="max-width: 800px; margin: 40px auto; display: grid; gap: 20px;">
+        <!-- عداد الكلمات الذكي -->
+        <div class="tool-card">
+            <h3><i class="fa-solid fa-file-lines"></i> محلل ومحرر النصوص الذكي</h3>
+            <textarea id="textInput" placeholder="اكتب أو الصق نصك هنا..." oninput="analyzeText()"></textarea>
+            <div class="stats-grid">
+                <div class="stat-item">الحروف: <span id="charCount">0</span></div>
+                <div class="stat-item">الكلمات: <span id="wordCount">0</span></div>
+            </div>
+        </div>
+
+        <!-- مولد كلمات المرور -->
+        <div class="tool-card">
+            <h3><i class="fa-solid fa-lock"></i> مُولد كلمات المرور الآمنة</h3>
+            <button onclick="generatePassword()" class="btn-success">توليد كلمة سر</button>
+            <div class="password-container">
+                <div id="passwordResult" class="output-box password-field">اضغط توليد...</div>
+                <button onclick="copyPassword()" class="btn-copy"><i class="fa-solid fa-copy"></i></button>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
