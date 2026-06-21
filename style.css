@@ -169,3 +169,15 @@ button {
     border-radius: 4px;
     display: inline-block;
 }
+.btn-link {
+    display: inline-block;
+    margin-top: 15px;
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: bold;
+    transition: 0.2s;
+}
+.btn-link:hover {
+    color: var(--success-color);
+    transform: translateX(-5px);
+}
