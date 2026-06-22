@@ -8,8 +8,6 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-    <!-- شريط التنقل الزجاجي الموحد -->
     <nav class="navbar">
         <div class="nav-container">
             <a href="index.html" class="nav-logo"><i class="fa-solid fa-wand-magic-sparkles"></i> بوابة الأدوات</a>
@@ -23,15 +21,19 @@
         </div>
     </nav>
 
+    <div class="top-bar">
+        <div id="liveClock" class="live-clock"><i class="fa-regular fa-clock"></i> 00:00:00</div>
+        <button id="themeToggle" class="btn-theme"><i class="fa-solid fa-moon"></i> الوضع الداكن</button>
+    </div>
+
     <div class="container" style="max-width: 600px; margin: 40px auto; display: block;">
         <div class="tool-card">
-            <h3><i class="fa-solid fa-faucet-drip"></i> حاسبة احتياجك اليومي من السعرات والماء</h3>
-            <p>أدخل وزنك الحالي لتقوم الأداة بحساب كميات المياه والسعرات الحرارية الدقيقة التي يحتاجها جسمك للبناء والنشاط اليومي المستمر:</p>
+            <h3><i class="fa-solid fa-faucet-drip"></i> حاسبة احتياج السعرات والماء</h3>
+            <p>أدخل وزنك الحالي لتقوم الأداة بحساب كميات المياه والسعرات الحرارية التي يحتاجها جسمك يومياً:</p>
             <input type="number" id="healthWeight" placeholder="الوزن الحالي بالكيلوغرام" oninput="calculateCaloriesWater()">
             <div id="healthResult" class="output-box" style="border-right-color: var(--success-color);">أدخل الوزن لرؤية النتائج...</div>
         </div>
     </div>
-
     <script src="script.js"></script>
 </body>
 </html>
