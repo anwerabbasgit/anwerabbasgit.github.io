@@ -106,7 +106,6 @@ function clearCanvas() {
     const cv = document.getElementById('paintCanvas');
     if(cv) cv.getContext('2d').clearRect(0, 0, cv.width, cv.height); 
 }
-// تصحيح دالة تحميل لوحة الرسم لتفادي مشاكل الأمان
 function downloadCanvas() {
     const cv = document.getElementById('paintCanvas');
     if(cv) {
@@ -192,39 +191,3 @@ function calculateAge() {
         resultDiv.innerHTML = `عمرك: ${years} سنة، و ${months} شهر، و ${days} يوم. <br> 📅 ولدت يوم: ${daysOfWeek[birthDate.getDay()]}`;
     }
 }
-
-// ====== 12. الأداة العاشرة: حاسبة السعرات والماء ======
-function calculateCaloriesWater() {
-    const weight = parseFloat(document.getElementById('healthWeight').value);
-    const resultDiv = document.getElementById('healthResult');
-    if(weight && resultDiv) {
-        const water = (weight * 0.035).toFixed(1); // لتر ماء لكل كغم
-        const calories = Math.round(weight * 24 * 1.2); // سعرات حرارية تقريبية للنشاط الخفيف
-        resultDiv.innerHTML = `💪 تحتاج يومياً حوالي: <b>${calories} سعرة حرارية</b> <br> 💧 وكمية ماء لا تقل عن: <b>${water} لتر</b>`;
-    }
-}
-
-// ====== 13. الأداة الحادية عشرة: مولد ومحول الألوان ======
-function generateRandomColor() {
-    const randomColor = '#' + Math.floor(Math.random()*16777215).toString(16).padStart(6, '0');
-    const box = document.getElementById('colorBox');
-    const code = document.getElementById('colorCode');
-    if(box && code) {
-        box.style.backgroundColor = randomColor;
-        code.innerText = `HEX: ${randomColor}`;
-    }
-}
-
-// ====== 14. ميزة نظام البحث الفوري الذكي بالواجهة ======
-function searchTools() {
-    const query = document.getElementById('toolSearch').value.toLowerCase();
-    const cards = document.querySelectorAll('.tool-card');
-    cards.forEach(card => {
-        const title = card.querySelector('h3').innerText.toLowerCase();
-        const desc = card.querySelector('p').innerText.toLowerCase();
-        if(title.includes(query) || desc.includes(query)) {
-            card.style.display = "block";
-        } else {
-            card.style.display = "none";
-        }
-    });
