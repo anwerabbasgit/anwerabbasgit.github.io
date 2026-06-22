@@ -81,21 +81,50 @@ function convertCurrency() {
     }
 }
 
-// ====== 7. أداة لوحة الرسم الاحترافية آمنة التفعيل ======
+// ====== 7. أداة لوحة الرسم الاحترافية (تدعم الحاسبة والموبايل باللمس) ======
 const canvas = document.getElementById('paintCanvas');
 if(canvas) {
     const ctx = canvas.getContext('2d');
     let drawing = false;
-    canvas.addEventListener('mousedown', () => drawing = true);
-    canvas.addEventListener('mouseup', () => { drawing = false; ctx.beginPath(); });
-    canvas.addEventListener('mousemove', (e) => {
+
+    // وظيفة بدء الرسم المشتركة
+    function startDraw() { drawing = true; }
+    // وظيفة إنهاء الرسم المشتركة
+    function endDraw() { drawing = false; ctx.beginPath(); }
+    
+    // وظيفة الرسم الفعلية وحساب الإحداثيات بدقة لجميع الشاشات
+    function draw(x, y) {
         if (!drawing) return;
-        ctx.lineWidth = 3; ctx.lineCap = 'round'; ctx.strokeStyle = '#4361ee';
+        ctx.lineWidth = 3; 
+        ctx.lineCap = 'round'; 
+        ctx.strokeStyle = '#4361ee';
         const r = canvas.getBoundingClientRect();
-        ctx.lineTo(e.clientX - r.left, e.clientY - r.top); ctx.stroke();
-        ctx.beginPath(); ctx.moveTo(e.clientX - r.left, e.clientY - r.top);
+        ctx.lineTo(x - r.left, y - r.top); 
+        ctx.stroke();
+        ctx.beginPath(); 
+        ctx.moveTo(x - r.left, y - r.top);
+    }
+
+    // --- حساسات الحاسبة (الماوس) ---
+    canvas.addEventListener('mousedown', startDraw);
+    canvas.addEventListener('mouseup', endDraw);
+    canvas.addEventListener('mousemove', (e) => draw(e.clientX, e.clientY));
+
+    // --- حساسات الموبايل (اللمس المطور) ---
+    canvas.addEventListener('touchstart', (e) => {
+        startDraw();
+        const touch = e.touches[0];
+        draw(touch.clientX, touch.clientY);
     });
+    canvas.addEventListener('touchend', endDraw);
+    canvas.addEventListener('touchmove', (e) => {
+        // منع الشاشة من الاهتزاز أو النزول أثناء الرسم بالإصبع
+        e.preventDefault(); 
+        const touch = e.touches[0];
+        draw(touch.clientX, touch.clientY);
+    }, { passive: false });
 }
+
 function clearCanvas() { 
     const cv = document.getElementById('paintCanvas');
     if(cv) cv.getContext('2d').clearRect(0, 0, cv.width, cv.height); 
@@ -108,7 +137,7 @@ function downloadCanvas() {
     }
 }
 
-// ====== 8. الأداة الجديدة: مفكرة الملاحظات والمهام الذكية ======
+// ====== 8. مفكرة الملاحظات والمهام الذكية ======
 function loadNotes() {
     const saved = localStorage.getItem('userNotes');
     const txtArea = document.getElementById('notesArea');
@@ -126,5 +155,4 @@ function saveNotes() {
         }
     }
 }
-// تشغيل جلب الملاحظات فور فتح الصفحة
 document.addEventListener('DOMContentLoaded', loadNotes);
