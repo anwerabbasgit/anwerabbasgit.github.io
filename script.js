@@ -190,3 +190,72 @@ function convertGlobalTime() {
         }
     }
 }
+// ====== 10. الأداة الثامنة: حاسبة النسبة المئوية ======
+function calculatePercentage() {
+    const percentInput = document.getElementById('percentNum');
+    const totalInput = document.getElementById('totalNum');
+    const resultDiv = document.getElementById('percentResult');
+    
+    if(percentInput && totalInput && resultDiv) {
+        const p = parseFloat(percentInput.value);
+        const t = parseFloat(totalInput.value);
+        if(!isNaN(p) && !isNaN(t) && t !== 0) {
+            const res = ((p / 100) * t).toFixed(2);
+            resultDiv.innerText = `${p}% من العدد ${t} هي: ${res}`;
+        } else {
+            resultDiv.innerText = "يرجى إدخال أرقام صالحة...";
+        }
+    }
+}
+
+// ====== 11. الأداة التاسعة: حاسبة العمر الدقيق والتفصيلي ======
+function calculateAge() {
+    const birthInput = document.getElementById('birthDateInput');
+    const resultDiv = document.getElementById('ageResult');
+    
+    if(birthInput && resultDiv) {
+        const birthDateStr = birthInput.value;
+        if(!birthDateStr) {
+            resultDiv.innerHTML = "يرجى اختيار تاريخ ميلادك أولاً...";
+            return;
+        }
+        
+        const birthDate = new Date(birthDateStr);
+        const now = new Date();
+        
+        if(birthDate > now) {
+            resultDiv.innerHTML = "تاريخ الميلاد لا يمكن أن يكون في المستقبل!";
+            return;
+        }
+        
+        let years = now.getFullYear() - birthDate.getFullYear();
+        let months = now.getMonth() - birthDate.getMonth();
+        let days = now.getDate() - birthDate.getDate();
+        
+        if (days < 0) {
+            months--;
+            const prevMonth = new Date(now.getFullYear(), now.getMonth(), 0);
+            days += prevMonth.getDate();
+        }
+        if (months < 0) {
+            years--;
+            months += 12;
+        }
+        
+        // معرفة اليوم الذي ولد فيه باللغة العربية
+        const daysOfWeek = ["الأحد", "الإثنين", "الثلاثاء", "الأربعاء", "الخميس", "الجمعة", "السبت"];
+        const dayBorn = daysOfWeek[birthDate.getDay()];
+        
+        resultDiv.innerHTML = `
+            <div style="font-size: 16px; color: var(--primary-color); margin-bottom: 10px;">عمرك الدقيق الآن هو:</div>
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 15px;">
+                <div style="padding: 10px; background: var(--bg-color); border-radius: 8px;"><b>${years}</b> سنة</div>
+                <div style="padding: 10px; background: var(--bg-color); border-radius: 8px;"><b>${months}</b> شهر</div>
+                <div style="padding: 10px; background: var(--bg-color); border-radius: 8px;"><b>${days}</b> يوم</div>
+            </div>
+            <div style="font-size: 14px; background: var(--bg-color); padding: 8px; border-radius: 8px;">
+                📅 لقد وُلدت في يوم: <span style="color: var(--success-color); font-weight: bold;">${dayBorn}</span>
+            </div>
+        `;
+    }
+}
