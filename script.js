@@ -81,7 +81,7 @@ function convertCurrency() {
     }
 }
 
-// ====== 7. أداة لوحة الرسم الاحترافية ======
+// ====== 7. أداة لوحة الرسم الاحترافية للشاشات واللمس ======
 const canvas = document.getElementById('paintCanvas');
 if(canvas) {
     const ctx = canvas.getContext('2d');
@@ -191,3 +191,43 @@ function calculateAge() {
         resultDiv.innerHTML = `عمرك: ${years} سنة، و ${months} شهر، و ${days} يوم. <br> 📅 ولدت يوم: ${daysOfWeek[birthDate.getDay()]}`;
     }
 }
+
+// ====== 12. حاسبة السعرات والماء ======
+function calculateCaloriesWater() {
+    const weight = parseFloat(document.getElementById('healthWeight').value);
+    const resultDiv = document.getElementById('healthResult');
+    if(weight && resultDiv) {
+        const water = (weight * 0.035).toFixed(1);
+        const calories = Math.round(weight * 24 * 1.2);
+        resultDiv.innerHTML = `💪 تحتاج يومياً حوالي: <b>${calories} سعرة حرارية</b> <br> 💧 وكمية ماء لا تقل عن: <b>${water} لتر</b>`;
+    }
+}
+
+// ====== 13. مولد ومحول الألوان العشوائية ======
+function generateRandomColor() {
+    const randomColor = '#' + Math.floor(Math.random()*16777215).toString(16).padStart(6, '0');
+    const box = document.getElementById('colorBox');
+    const code = document.getElementById('colorCode');
+    if(box && code) {
+        box.style.backgroundColor = randomColor;
+        code.innerText = `HEX: ${randomColor}`;
+    }
+}
+
+// ====== 14. ميزة نظام البحث الفوري بالواجهة ======
+function searchTools() {
+    const query = document.getElementById('toolSearch').value.toLowerCase();
+    const cards = document.querySelectorAll('.tool-card');
+    cards.forEach(card => {
+        const title = card.querySelector('h3').innerText.toLowerCase();
+        const desc = card.querySelector('p').innerText.toLowerCase();
+        if(title.includes(query) || desc.includes(query)) {
+            card.style.display = "block";
+        } else {
+            card.style.display = "none";
+        }
+    });
+}
+
+// ====== 15. نظام التشغيل الموحد والذكي فور تحميل الصفحة ======
+document.addEventListener('DOMContentLoaded', () => {
