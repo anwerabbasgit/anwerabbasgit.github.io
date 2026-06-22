@@ -3,46 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>المفكرة الذكية ومحول التوقيت العالمي | أدوات رقمية</title>
+    <title>المفكرة الذكية ومحول التوقيت العالمي | بوابة الأدوات</title>
     <link rel="stylesheet" href="https://cloudflare.com">
     <link rel="stylesheet" href="style.css">
 </head>
 <body onload="loadNotes()">
 
-    <!-- شريط التنقل العلوي الاحترافي المشترك -->
     <nav class="navbar">
         <div class="nav-container">
             <a href="index.html" class="nav-logo"><i class="fa-solid fa-wand-magic-sparkles"></i> بوابة الأدوات</a>
             <ul class="nav-menu">
                 <li><a href="index.html">الرئيسية</a></li>
                 <li><a href="bmi.html">حاسبة الوزن</a></li>
+                <li><a href="health.html">السعرات والماء</a></li>
+                <li><a href="design.html">أدوات التصميم</a></li>
                 <li><a href="text.html">النصوص والأمان</a></li>
-                <li><a href="tools2.html">الرسم والعملات</a></li>
-                <li><a href="notes.html" class="active">المفكرة والتوقيت</a></li>
-                <li><a href="calculators.html">حاسبات منوعة</a></li>
-
             </ul>
         </div>
     </nav>
 
-    <div class="container" style="max-width: 900px; margin: 40px auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px;">
-        
-        <!-- 1. مفكرة حفظ الملاحظات وقائمة المهام الذكية -->
+    <div class="top-bar">
+        <div id="liveClock" class="live-clock"><i class="fa-regular fa-clock"></i> 00:00:00</div>
+        <button id="themeToggle" class="btn-theme"><i class="fa-solid fa-moon"></i> الوضع الداكن</button>
+    </div>
+
+    <div class="container">
         <div class="tool-card">
             <h3><i class="fa-solid fa-note-sticky"></i> مفكرة المهام والملاحظات</h3>
             <p>اكتب أفكارك أو مهامك اليومية هنا؛ حيث يتم حفظ البيانات تلقائياً في جهازك الشخصي بآمان.</p>
-            <textarea id="notesArea" placeholder="ابدأ الكتابة هنا، سيتم حفظ كل حرف تلقائياً..." oninput="saveNotes()" style="height: 180px; font-size: 15px; border-left: 4px solid #4361ee;"></textarea>
-            <div id="saveStatus" style="color: #2ec4b6; font-weight: bold; font-size: 13px; margin-top: 50px; text-align: center;"></div>
+            <textarea id="notesArea" placeholder="ابدأ الكتابة هنا، سيتم حفظ كل حرف تكتبه تلقائياً..." oninput="saveNotes()" style="height: 150px;"></textarea>
+            <div id="saveStatus" style="color: #2ec4b6; font-weight: bold; font-size: 13px; margin-top: 10px; text-align: center;"></div>
         </div>
 
-        <!-- 2. الأداة الجديدة السابعة: محول التوقيت العالمي الفوري -->
         <div class="tool-card">
             <h3><i class="fa-solid fa-earth-americas"></i> محول التوقيت العالمي الفوري</h3>
-            <p>اختر الوقت الحالي في بلدك (العراق) لتعرف كم يوافق فوراً في العواصم والمنظمات العالمية الزوجية الحية:</p>
-            <input type="time" id="localTimeInput" oninput="convertGlobalTime()" style="font-size: 16px; text-align: center; font-weight: bold; border-left: 4px solid #2ec4b6;">
-            <div id="timeZoneResults" class="output-box" style="border-right-color: #2ec4b6;">اختر الوقت لرؤية النتائج الفورية...</div>
+            <p>اختر الوقت الحالي في بلدك لتعرف كم يوافق فوراً في العواصم والمنظمات العالمية الحية:</p>
+            <input type="time" id="localTimeInput" oninput="convertGlobalTime()">
+            <div id="timeZoneResults" class="output-box">اختر الوقت لرؤية النتائج الفورية...</div>
         </div>
-
     </div>
 
     <script src="script.js"></script>
