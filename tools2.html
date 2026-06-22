@@ -3,51 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>لوحة الرسم ومحول العملات العالمية</title>
+    <title>لوحة الرسم ومحول العملات الفوري | بوابة الأدوات</title>
     <link rel="stylesheet" href="https://cloudflare.com">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <!-- شريط التنقل العلوي الاحترافي المشترك -->
     <nav class="navbar">
         <div class="nav-container">
             <a href="index.html" class="nav-logo"><i class="fa-solid fa-wand-magic-sparkles"></i> بوابة الأدوات</a>
             <ul class="nav-menu">
                 <li><a href="index.html">الرئيسية</a></li>
                 <li><a href="bmi.html">حاسبة الوزن</a></li>
-                <li><a href="text.html">النصوص والأمان</a></li>
                 <li><a href="tools2.html" class="active">الرسم والعملات</a></li>
-                <li><a href="notes.html">المفكرة الذكية</a></li>
+                <li><a href="notes.html">المفكرة والتوقيت</a></li>
                 <li><a href="calculators.html">حاسبات منوعة</a></li>
-
             </ul>
         </div>
     </nav>
-    
-    <div class="container" style="max-width: 800px; margin: 40px auto; display: grid; gap: 20px;">
-        <!-- محول العملات السريع -->
+
+    <div class="container" style="max-width: 800px; margin: 40px auto; display: grid; gap: 30px;">
+        <!-- محول العملات -->
         <div class="tool-card">
-            <h3><i class="fa-solid fa-money-bill-transfer"></i> محول العملات التلقائي</h3>
-            <input type="number" id="amount" placeholder="المبلغ بالدولار ($)" oninput="convertCurrency()">
-            <div class="currency-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 15px;">
-                <div class="currency-item" style="padding: 15px; background: var(--bg-color); border-radius: 10px; border: 1px solid rgba(0,0,0,0.05); text-align: center; font-weight: bold;">بالدينار العراقي: <span id="iqdResult" style="color: var(--primary-color);">0</span> د.ع</div>
-                <div class="currency-item" style="padding: 15px; background: var(--bg-color); border-radius: 10px; border: 1px solid rgba(0,0,0,0.05); text-align: center; font-weight: bold;">بالجنيه المصري: <span id="egpResult" style="color: var(--success-color);">0</span> ج.م</div>
+            <h3><i class="fa-solid fa-money-bill-transfer"></i> محول ومعادل أسعار صرف العملات</h3>
+            <p>أدخل القيمة بعملة الدولار الأمريكي لتظهر لك قيمتها المقابلة فوراً بمؤشرات حية:</p>
+            <input type="number" id="amount" placeholder="المبلغ بالدولار الأمريكي ($)" oninput="convertCurrency()">
+            <div class="stats-grid">
+                <div class="stat-item" style="font-size: 14px;">بالدينار العراقي: <br><span id="iqdResult" style="color: var(--primary-color); font-size: 18px;">0</span> د.ع</div>
+                <div class="stat-item" style="font-size: 14px;">بالجنيه المصري: <br><span id="egpResult" style="color: var(--success-color); font-size: 18px;">0</span> ج.م</div>
             </div>
         </div>
 
-        <!-- لوحة الرسم والتوقيع -->
+        <!-- لوحة الرسم والتوقيع الإلكتروني -->
         <div class="tool-card">
-            <h3><i class="fa-solid fa-pen-ruler"></i> لوحة الرسم والتوقيع الرقمي</h3>
-            <div style="text-align: center; background: #f8fafc; padding: 15px; border-radius: 12px; margin: 10px 0;">
-                <canvas id="paintCanvas" width="300" height="150" style="border: 2px dashed #cbd5e1; border-radius: 10px; background: #fff; cursor: crosshair; max-width: 100%;"></canvas>
+            <h3><i class="fa-solid fa-pen-nib"></i> لوحة الرسم والتوقيع الرقمي السريع</h3>
+            <p>استخدم إصبعك على المبايل أو الماوس على الكمبيوتر لتوقيع مستنداتك وتحميلها كصورة PNG شفافة فوراً:</p>
+            <div style="text-align: center; background: rgba(0,0,0,0.02); padding: 15px; border-radius: 16px; border: 1px solid var(--border-color); margin: 15px 0;">
+                <canvas id="paintCanvas" width="400" height="200" style="border: 2px dashed var(--primary-color); border-radius: 12px; background: #fff; cursor: crosshair; max-width: 100%;"></canvas>
             </div>
-            <div class="canvas-controls" style="display: flex; gap: 10px; margin-top: 10px;">
-                <button onclick="clearCanvas()" class="btn-danger" style="flex: 1;">مسح</button>
-                <button onclick="downloadCanvas()" class="btn-primary" style="flex: 1;">تحميل الرسمة</button>
+            <div class="canvas-controls" style="display: flex; gap: 15px;">
+                <button onclick="clearCanvas()" class="btn-danger" style="flex: 1;">مسح اللوحة</button>
+                <button onclick="downloadCanvas()" class="btn-primary" style="flex: 1;">تحميل التوقيع بصيغة PNG</button>
             </div>
         </div>
     </div>
+
     <script src="script.js"></script>
 </body>
 </html>
