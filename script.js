@@ -81,59 +81,46 @@ function convertCurrency() {
     }
 }
 
-// ====== 7. أداة لوحة الرسم الاحترافية (تدعم الحاسبة والموبايل باللمس) ======
+// ====== 7. أداة لوحة الرسم الاحترافية ======
 const canvas = document.getElementById('paintCanvas');
 if(canvas) {
     const ctx = canvas.getContext('2d');
     let drawing = false;
-
-    // وظيفة بدء الرسم المشتركة
     function startDraw() { drawing = true; }
-    // وظيفة إنهاء الرسم المشتركة
     function endDraw() { drawing = false; ctx.beginPath(); }
-    
-    // وظيفة الرسم الفعلية وحساب الإحداثيات بدقة لجميع الشاشات
     function draw(x, y) {
         if (!drawing) return;
-        ctx.lineWidth = 3; 
-        ctx.lineCap = 'round'; 
-        ctx.strokeStyle = '#4361ee';
+        ctx.lineWidth = 3; ctx.lineCap = 'round'; ctx.strokeStyle = '#4361ee';
         const r = canvas.getBoundingClientRect();
-        ctx.lineTo(x - r.left, y - r.top); 
-        ctx.stroke();
-        ctx.beginPath(); 
-        ctx.moveTo(x - r.left, y - r.top);
+        ctx.lineTo(x - r.left, y - r.top); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(x - r.left, y - r.top);
     }
-
-    // --- حساسات الحاسبة (الماوس) ---
     canvas.addEventListener('mousedown', startDraw);
     canvas.addEventListener('mouseup', endDraw);
     canvas.addEventListener('mousemove', (e) => draw(e.clientX, e.clientY));
-
-    // --- حساسات الموبايل (اللمس المطور) ---
-    canvas.addEventListener('touchstart', (e) => {
-        startDraw();
-        const touch = e.touches[0];
-        draw(touch.clientX, touch.clientY);
-    });
+    canvas.addEventListener('touchstart', (e) => { startDraw(); const t = e.touches[0]; draw(t.clientX, t.clientY); });
     canvas.addEventListener('touchend', endDraw);
-    canvas.addEventListener('touchmove', (e) => {
-        // منع الشاشة من الاهتزاز أو النزول أثناء الرسم بالإصبع
-        e.preventDefault(); 
-        const touch = e.touches[0];
-        draw(touch.clientX, touch.clientY);
-    }, { passive: false });
+    canvas.addEventListener('touchmove', (e) => { e.preventDefault(); const t = e.touches[0]; draw(t.clientX, t.clientY); }, { passive: false });
 }
-
 function clearCanvas() { 
     const cv = document.getElementById('paintCanvas');
     if(cv) cv.getContext('2d').clearRect(0, 0, cv.width, cv.height); 
 }
+// تصحيح دالة تحميل لوحة الرسم لتفادي مشاكل الأمان
 function downloadCanvas() {
     const cv = document.getElementById('paintCanvas');
     if(cv) {
-        const lnk = document.createElement('a'); lnk.download = 'signature.png';
-        lnk.href = cv.toDataURL(); lnk.click();
+        try {
+            const dataUrl = cv.toDataURL('image/png');
+            const lnk = document.createElement('a');
+            lnk.download = 'signature.png';
+            lnk.href = dataUrl;
+            document.body.appendChild(lnk);
+            lnk.click();
+            document.body.removeChild(lnk);
+        } catch (e) {
+            alert("حدث خطأ أثناء تحميل الرسمة، يرجى المحاولة مرة أخرى.");
+        }
     }
 }
 
@@ -155,107 +142,89 @@ function saveNotes() {
         }
     }
 }
-document.addEventListener('DOMContentLoaded', loadNotes);
-// ====== 9. الأداة السابعة: محول التوقيت العالمي الفوري ======
+
+// ====== 9. محول التوقيت العالمي الفوري ======
 function convertGlobalTime() {
     const timeInput = document.getElementById('localTimeInput');
     const resultDiv = document.getElementById('timeZoneResults');
-    
     if(timeInput && resultDiv) {
         const timeVal = timeInput.value;
-        if(!timeVal) {
-            resultDiv.innerHTML = "يرجى اختيار الوقت أولاً...";
-            return;
-        }
-
-        // إنشاء تاريخ بناءً على الوقت المختار
+        if(!timeVal) return;
         const [hours, minutes] = timeVal.split(':');
-        const d = new Date();
-        d.setHours(hours); d.setMinutes(minutes); d.setSeconds(0);
-
-        // حساب الأوقات العالمية عبر شروط لغوية برمجية مدمجة
+        const d = new Date(); d.setHours(hours); d.setMinutes(minutes);
         const fmt = (zone) => d.toLocaleTimeString('ar-EG', { timeZone: zone, hour: '2-digit', minute: '2-digit' });
-        
-        try {
-            resultDiv.innerHTML = `
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px; font-size: 14px;">
-                    <div style="padding: 10px; background: var(--bg-color); border-radius: 8px;">🕋 توقيت مكة: <b>${fmt('Asia/Riyadh')}</b></div>
-                    <div style="padding: 10px; background: var(--bg-color); border-radius: 8px;">🇬🇧 توقيت لندن: <b>${fmt('Europe/London')}</b></div>
-                    <div style="padding: 10px; background: var(--bg-color); border-radius: 8px;">🇺🇸 توقيت نيويورك: <b>${fmt('America/New_York')}</b></div>
-                    <div style="padding: 10px; background: var(--bg-color); border-radius: 8px;">🌐 توقيت غرينتش (UTC): <b>${fmt('UTC')}</b></div>
-                </div>
-            `;
-        } catch(e) {
-            resultDiv.innerHTML = "خطأ في حساب التوقيت، يرجى المحاولة مجدداً.";
-        }
+        resultDiv.innerHTML = `
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px; font-size: 14px;">
+                <div style="padding: 10px; background: var(--bg-color); border-radius: 8px;">🕋 مكة: <b>${fmt('Asia/Riyadh')}</b></div>
+                <div style="padding: 10px; background: var(--bg-color); border-radius: 8px;">🇬🇧 لندن: <b>${fmt('Europe/London')}</b></div>
+                <div style="padding: 10px; background: var(--bg-color); border-radius: 8px;">🇺🇸 نيويورك: <b>${fmt('America/New_York')}</b></div>
+                <div style="padding: 10px; background: var(--bg-color); border-radius: 8px;">🌐 غرينتش: <b>${fmt('UTC')}</b></div>
+            </div>`;
     }
 }
-// ====== 10. الأداة الثامنة: حاسبة النسبة المئوية ======
+
+// ====== 10. حاسبة النسبة المئوية ======
 function calculatePercentage() {
     const percentInput = document.getElementById('percentNum');
     const totalInput = document.getElementById('totalNum');
     const resultDiv = document.getElementById('percentResult');
-    
     if(percentInput && totalInput && resultDiv) {
-        const p = parseFloat(percentInput.value);
-        const t = parseFloat(totalInput.value);
+        const p = parseFloat(percentInput.value); const t = parseFloat(totalInput.value);
         if(!isNaN(p) && !isNaN(t) && t !== 0) {
-            const res = ((p / 100) * t).toFixed(2);
-            resultDiv.innerText = `${p}% من العدد ${t} هي: ${res}`;
-        } else {
-            resultDiv.innerText = "يرجى إدخال أرقام صالحة...";
+            resultDiv.innerText = `${p}% من العدد ${t} هي: ${((p / 100) * t).toFixed(2)}`;
         }
     }
 }
 
-// ====== 11. الأداة التاسعة: حاسبة العمر الدقيق والتفصيلي ======
+// ====== 11. حاسبة العمر الدقيق ======
 function calculateAge() {
     const birthInput = document.getElementById('birthDateInput');
     const resultDiv = document.getElementById('ageResult');
-    
     if(birthInput && resultDiv) {
-        const birthDateStr = birthInput.value;
-        if(!birthDateStr) {
-            resultDiv.innerHTML = "يرجى اختيار تاريخ ميلادك أولاً...";
-            return;
-        }
-        
-        const birthDate = new Date(birthDateStr);
-        const now = new Date();
-        
-        if(birthDate > now) {
-            resultDiv.innerHTML = "تاريخ الميلاد لا يمكن أن يكون في المستقبل!";
-            return;
-        }
-        
+        if(!birthInput.value) return;
+        const birthDate = new Date(birthInput.value); const now = new Date();
         let years = now.getFullYear() - birthDate.getFullYear();
         let months = now.getMonth() - birthDate.getMonth();
         let days = now.getDate() - birthDate.getDate();
-        
-        if (days < 0) {
-            months--;
-            const prevMonth = new Date(now.getFullYear(), now.getMonth(), 0);
-            days += prevMonth.getDate();
-        }
-        if (months < 0) {
-            years--;
-            months += 12;
-        }
-        
-        // معرفة اليوم الذي ولد فيه باللغة العربية
+        if (days < 0) { months--; const prevMonth = new Date(now.getFullYear(), now.getMonth(), 0); days += prevMonth.getDate(); }
+        if (months < 0) { years--; months += 12; }
         const daysOfWeek = ["الأحد", "الإثنين", "الثلاثاء", "الأربعاء", "الخميس", "الجمعة", "السبت"];
-        const dayBorn = daysOfWeek[birthDate.getDay()];
-        
-        resultDiv.innerHTML = `
-            <div style="font-size: 16px; color: var(--primary-color); margin-bottom: 10px;">عمرك الدقيق الآن هو:</div>
-            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 15px;">
-                <div style="padding: 10px; background: var(--bg-color); border-radius: 8px;"><b>${years}</b> سنة</div>
-                <div style="padding: 10px; background: var(--bg-color); border-radius: 8px;"><b>${months}</b> شهر</div>
-                <div style="padding: 10px; background: var(--bg-color); border-radius: 8px;"><b>${days}</b> يوم</div>
-            </div>
-            <div style="font-size: 14px; background: var(--bg-color); padding: 8px; border-radius: 8px;">
-                📅 لقد وُلدت في يوم: <span style="color: var(--success-color); font-weight: bold;">${dayBorn}</span>
-            </div>
-        `;
+        resultDiv.innerHTML = `عمرك: ${years} سنة، و ${months} شهر، و ${days} يوم. <br> 📅 ولدت يوم: ${daysOfWeek[birthDate.getDay()]}`;
     }
 }
+
+// ====== 12. الأداة العاشرة: حاسبة السعرات والماء ======
+function calculateCaloriesWater() {
+    const weight = parseFloat(document.getElementById('healthWeight').value);
+    const resultDiv = document.getElementById('healthResult');
+    if(weight && resultDiv) {
+        const water = (weight * 0.035).toFixed(1); // لتر ماء لكل كغم
+        const calories = Math.round(weight * 24 * 1.2); // سعرات حرارية تقريبية للنشاط الخفيف
+        resultDiv.innerHTML = `💪 تحتاج يومياً حوالي: <b>${calories} سعرة حرارية</b> <br> 💧 وكمية ماء لا تقل عن: <b>${water} لتر</b>`;
+    }
+}
+
+// ====== 13. الأداة الحادية عشرة: مولد ومحول الألوان ======
+function generateRandomColor() {
+    const randomColor = '#' + Math.floor(Math.random()*16777215).toString(16).padStart(6, '0');
+    const box = document.getElementById('colorBox');
+    const code = document.getElementById('colorCode');
+    if(box && code) {
+        box.style.backgroundColor = randomColor;
+        code.innerText = `HEX: ${randomColor}`;
+    }
+}
+
+// ====== 14. ميزة نظام البحث الفوري الذكي بالواجهة ======
+function searchTools() {
+    const query = document.getElementById('toolSearch').value.toLowerCase();
+    const cards = document.querySelectorAll('.tool-card');
+    cards.forEach(card => {
+        const title = card.querySelector('h3').innerText.toLowerCase();
+        const desc = card.querySelector('p').innerText.toLowerCase();
+        if(title.includes(query) || desc.includes(query)) {
+            card.style.display = "block";
+        } else {
+            card.style.display = "none";
+        }
+    });
