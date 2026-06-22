@@ -22,11 +22,15 @@
         </div>
     </nav>
 
+    <div class="top-bar">
+        <div id="liveClock" class="live-clock"><i class="fa-regular fa-clock"></i> 00:00:00</div>
+        <button id="themeToggle" class="btn-theme"><i class="fa-solid fa-moon"></i> الوضع الداكن</button>
+    </div>
+
     <div class="container" style="max-width: 800px; margin: 40px auto; display: grid; gap: 30px;">
-        <!-- محلل النصوص -->
         <div class="tool-card">
             <h3><i class="fa-solid fa-file-lines"></i> محلل ومحرر النصوص الاحترافي</h3>
-            <p>اكتب أو الصق مقالك هنا لحساب عدد الكلمات والحروف الصافية بدون فواصل بشكل حي وفوري:</p>
+            <p>احسب عدد الكلمات والحروف الصافية بدون مسافات بشكل حي وفوري للمقالات والبحوث:</p>
             <textarea id="textInput" placeholder="ابدأ بكتابة أو لصق النص هنا للتحليل الافتراضي الفوري..." oninput="analyzeText()" style="height: 160px;"></textarea>
             <div class="stats-grid">
                 <div class="stat-item">إجمالي الحروف: <span id="charCount" style="color: var(--primary-color);">0</span></div>
@@ -34,10 +38,9 @@
             </div>
         </div>
 
-        <!-- مولد كلمات السر -->
         <div class="tool-card">
-            <h3><i class="fa-solid fa-lock"></i> مُولد كلمات المرور العشوائية المشفرة</h3>
-            <p>قم بتوليد سلاسل نصية معقدة للغاية مدمجة برموز حسابية لحماية حساباتك ضد التخمين والاختراق الإلكتروني:</p>
+            <h3><i class="fa-solid fa-lock"></i> مُولد كلمات المرور المشفرة</h3>
+            <p>توليد سلاسل نصية معقدة للغاية مدمجة برموز لحماية حساباتك ضد الاختراق الرقمي:</p>
             <button onclick="generatePassword()" class="btn-success">توليد كلمة مرور معقدة</button>
             <div class="password-container" style="display: flex; gap: 10px; margin-top: 15px;">
                 <div id="passwordResult" class="output-box" style="flex: 1; margin-top: 0; text-align: right; padding-right: 15px;">اضغط توليد...</div>
