@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مولد الألوان الاحترافي | أدوات المصممين</title>
+    <link rel="stylesheet" href="https://cloudflare.com">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo"><i class="fa-solid fa-wand-magic-sparkles"></i> بوابة الأدوات</a>
+            <ul class="nav-menu">
+                <li><a href="index.html">الرئيسية</a></li>
+                <li><a href="tools2.html">الرسم والعملات</a></li>
+                <li><a href="notes.html">المفكرة والتوقيت</a></li>
+                <li><a href="calculators.html">حاسبات منوعة</a></li>
+                <li><a href="design.html" class="active">أدوات التصميم</a></li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container" style="max-width: 600px; margin: 40px auto;">
+        <div class="tool-card" style="text-align: center;">
+            <h3><i class="fa-solid fa-eye-dropper"></i> مولد ومستخرج الألوان العشوائية لحقائب الـ UI</h3>
+            <p>اضغط على الزر لتوليد لون عشوائي فاخر واستخراج كود الـ HEX الخاص به لاستخدامه في مشاريعك البرمجية والتصميمية فورا:</p>
+            <div id="colorBox" style="width: 100%; height: 120px; background-color: #4361ee; border-radius: 12px; margin: 15px 0; transition: background 0.2s;"></div>
+            <div id="colorCode" class="output-box" style="margin-bottom: 15px;">HEX: #4361ee</div>
+            <button onclick="generateRandomColor()" class="btn-primary">توليد لون عشوائي جديد</button>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
