@@ -156,3 +156,37 @@ function saveNotes() {
     }
 }
 document.addEventListener('DOMContentLoaded', loadNotes);
+// ====== 9. الأداة السابعة: محول التوقيت العالمي الفوري ======
+function convertGlobalTime() {
+    const timeInput = document.getElementById('localTimeInput');
+    const resultDiv = document.getElementById('timeZoneResults');
+    
+    if(timeInput && resultDiv) {
+        const timeVal = timeInput.value;
+        if(!timeVal) {
+            resultDiv.innerHTML = "يرجى اختيار الوقت أولاً...";
+            return;
+        }
+
+        // إنشاء تاريخ بناءً على الوقت المختار
+        const [hours, minutes] = timeVal.split(':');
+        const d = new Date();
+        d.setHours(hours); d.setMinutes(minutes); d.setSeconds(0);
+
+        // حساب الأوقات العالمية عبر شروط لغوية برمجية مدمجة
+        const fmt = (zone) => d.toLocaleTimeString('ar-EG', { timeZone: zone, hour: '2-digit', minute: '2-digit' });
+        
+        try {
+            resultDiv.innerHTML = `
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px; font-size: 14px;">
+                    <div style="padding: 10px; background: var(--bg-color); border-radius: 8px;">🕋 توقيت مكة: <b>${fmt('Asia/Riyadh')}</b></div>
+                    <div style="padding: 10px; background: var(--bg-color); border-radius: 8px;">🇬🇧 توقيت لندن: <b>${fmt('Europe/London')}</b></div>
+                    <div style="padding: 10px; background: var(--bg-color); border-radius: 8px;">🇺🇸 توقيت نيويورك: <b>${fmt('America/New_York')}</b></div>
+                    <div style="padding: 10px; background: var(--bg-color); border-radius: 8px;">🌐 توقيت غرينتش (UTC): <b>${fmt('UTC')}</b></div>
+                </div>
+            `;
+        } catch(e) {
+            resultDiv.innerHTML = "خطأ في حساب التوقيت، يرجى المحاولة مجدداً.";
+        }
+    }
+}
