@@ -3,49 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>محلل النصوص ومولد كلمات المرور | أدوات ذكية</title>
+    <title>محلل النصوص ومولد كلمات المرور | بوابة الأدوات</title>
     <link rel="stylesheet" href="https://cloudflare.com">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <!-- شريط التنقل العلوي الاحترافي الجديد المشترك -->
     <nav class="navbar">
         <div class="nav-container">
             <a href="index.html" class="nav-logo"><i class="fa-solid fa-wand-magic-sparkles"></i> بوابة الأدوات</a>
             <ul class="nav-menu">
                 <li><a href="index.html">الرئيسية</a></li>
                 <li><a href="bmi.html">حاسبة الوزن</a></li>
+                <li><a href="health.html">السعرات والماء</a></li>
+                <li><a href="design.html">أدوات التصميم</a></li>
                 <li><a href="text.html" class="active">النصوص والأمان</a></li>
-                <li><a href="tools2.html">الرسم والعملات</a></li>
-                <li><a href="notes.html">المفكرة الذكية</a></li>
-                <li><a href="calculators.html">حاسبات منوعة</a></li>
-
             </ul>
         </div>
     </nav>
-    
-    <div class="container" style="max-width: 800px; margin: 40px auto; display: grid; gap: 20px;">
-        <!-- عداد الكلمات الذكي -->
+
+    <div class="container" style="max-width: 800px; margin: 40px auto; display: grid; gap: 30px;">
+        <!-- محلل النصوص -->
         <div class="tool-card">
-            <h3><i class="fa-solid fa-file-lines"></i> محلل ومحرر النصوص الذكي</h3>
-            <textarea id="textInput" placeholder="اكتب أو الصق نصك هنا..." oninput="analyzeText()"></textarea>
+            <h3><i class="fa-solid fa-file-lines"></i> محلل ومحرر النصوص الاحترافي</h3>
+            <p>اكتب أو الصق مقالك هنا لحساب عدد الكلمات والحروف الصافية بدون فواصل بشكل حي وفوري:</p>
+            <textarea id="textInput" placeholder="ابدأ بكتابة أو لصق النص هنا للتحليل الافتراضي الفوري..." oninput="analyzeText()" style="height: 160px;"></textarea>
             <div class="stats-grid">
-                <div class="stat-item">الحروف: <span id="charCount">0</span></div>
-                <div class="stat-item">الكلمات: <span id="wordCount">0</span></div>
+                <div class="stat-item">إجمالي الحروف: <span id="charCount" style="color: var(--primary-color);">0</span></div>
+                <div class="stat-item">إجمالي الكلمات: <span id="wordCount" style="color: var(--success-color);">0</span></div>
             </div>
         </div>
 
-        <!-- مولد كلمات المرور -->
+        <!-- مولد كلمات السر -->
         <div class="tool-card">
-            <h3><i class="fa-solid fa-lock"></i> مُولد كلمات المرور الآمنة</h3>
-            <button onclick="generatePassword()" class="btn-success">توليد كلمة سر</button>
-            <div class="password-container" style="display: flex; gap: 10px; margin-top: 10px;">
-                <div id="passwordResult" class="output-box password-field" style="flex: 1; padding: 12px; background: var(--bg-color); border: 1px solid #ced4da; border-radius: 8px;">اضغط توليد...</div>
+            <h3><i class="fa-solid fa-lock"></i> مُولد كلمات المرور العشوائية المشفرة</h3>
+            <p>قم بتوليد سلاسل نصية معقدة للغاية مدمجة برموز حسابية لحماية حساباتك ضد التخمين والاختراق الإلكتروني:</p>
+            <button onclick="generatePassword()" class="btn-success">توليد كلمة مرور معقدة</button>
+            <div class="password-container" style="display: flex; gap: 10px; margin-top: 15px;">
+                <div id="passwordResult" class="output-box" style="flex: 1; margin-top: 0; text-align: right; padding-right: 15px;">اضغط توليد...</div>
                 <button onclick="copyPassword()" class="btn-primary" style="width: auto; padding: 12px 20px;"><i class="fa-solid fa-copy"></i> نسخ</button>
             </div>
         </div>
     </div>
+
     <script src="script.js"></script>
 </body>
 </html>
