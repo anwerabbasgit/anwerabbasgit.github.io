@@ -136,9 +136,221 @@ body {
     transform: scale(1.08) rotate(15deg);
 }
 
-/* التنسيق البصري عند تفعيل الوضع الليلي (تم تنظيف التداخل المكرر) */
 [data-theme="dark"] .btn-theme {
     color: #f59e0b !important;
     background-color: rgba(245, 158, 11, 0.1) !important;
     border-color: rgba(245, 158, 11, 0.25) !important;
+}
+/* الهيدر الرئيسي الفاخر */
+.main-header {
+    background: var(--primary-gradient);
+    color: white;
+    text-align: center;
+    padding: 60px 20px;
+    position: relative;
+    overflow: hidden;
+}
+.main-header h1 {
+    font-size: 36px;
+    font-weight: 800;
+    margin: 0 0 10px 0;
+    letter-spacing: -0.5px;
+}
+.main-header p {
+    font-size: 16px;
+    opacity: 0.85;
+    margin: 0;
+}
+
+/* حاوية البطاقات المتطورة */
+.container {
+    max-width: 1200px;
+    margin: 50px auto;
+    padding: 0 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap: 30px;
+}
+
+/* تصميم البطاقات المحدث بنظام زجاجي ثلاثي الأبعاد */
+.tool-card {
+    background: var(--card-bg);
+    border-radius: 24px;
+    padding: 35px;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border-color);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+}
+.tool-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px -15px rgba(67, 97, 238, 0.15);
+    border-color: rgba(67, 97, 238, 0.3);
+}
+
+.tool-card h3 {
+    margin: 0 0 12px 0;
+    font-size: 20px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--text-color);
+}
+.tool-card h3 i {
+    color: var(--primary-color);
+    background: rgba(67, 97, 238, 0.08);
+    padding: 10px;
+    border-radius: 12px;
+}
+
+.tool-card p {
+    color: var(--text-muted);
+    font-size: 14px;
+    line-height: 1.6;
+    margin: 0 0 20px 0;
+}
+
+/* حقول الإدخال والنتائج الفاخرة */
+input, textarea {
+    width: 100%;
+    padding: 14px;
+    margin: 12px 0;
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    box-sizing: border-box;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: inherit;
+    font-size: 14px;
+    transition: all 0.2s ease;
+}
+input:focus, textarea:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 4px rgba(67, 97, 238, 0.1);
+    outline: none;
+}
+
+button {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 14px;
+    font-weight: 700;
+    font-size: 15px;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    transition: all 0.2s ease;
+}
+button:active { transform: scale(0.98); }
+button:hover { filter: brightness(1.05); transform: translateY(-1px); }
+
+.btn-primary { background: var(--primary-gradient); color: white; }
+.btn-success { background: linear-gradient(135deg, #2ec4b6, #0cb0a0); color: white; }
+.btn-danger { background: linear-gradient(135deg, #e63946, #c1121f); color: white; }
+
+.btn-link {
+    display: inline-flex;
+    align-items: center;
+    margin-top: 5px;
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 14px;
+    transition: gap 0.2s;
+}
+.btn-link:hover {
+    color: var(--success-color);
+}
+
+.output-box {
+    margin-top: 20px;
+    padding: 16px;
+    background-color: rgba(67, 97, 238, 0.03);
+    border-radius: 12px;
+    border: 1px dashed var(--primary-color);
+    font-weight: 700;
+    text-align: center;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-top: 15px;
+}
+.stat-item {
+    padding: 12px;
+    background-color: var(--bg-color);
+    border-radius: 8px;
+    text-align: center;
+    font-weight: bold;
+}
+
+/* تذييل الصفحة */
+.main-footer {
+    text-align: center;
+    padding: 40px 20px;
+    background: #090d16;
+    color: #94a3b8;
+    margin-top: 80px;
+    border-top: 1px solid #151f32;
+}
+
+/* توافق الهواتف الذكية الفائق لـ 7 روابط علوية */
+@media (max-width: 900px) {
+    .navbar { padding: 10px; }
+    .nav-container { flex-direction: column; gap: 8px; text-align: center; }
+    .nav-menu { flex-wrap: wrap; justify-content: center; gap: 4px; width: 100%; }
+    .nav-menu a { padding: 6px 10px; font-size: 11px; border-radius: 6px; }
+    .main-header { padding: 35px 15px; }
+    .main-header h1 { font-size: 24px; }
+    .container { margin: 20px auto; gap: 15px; grid-template-columns: 1fr; }
+    .tool-card { padding: 20px; }
+}
+
+/* --- نظام القائمة المنسدلة الاحترافي الجديد --- */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    background-color: var(--card-bg);
+    min-width: 200px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    padding: 8px 0;
+    z-index: 1005;
+}
+
+.dropdown-content a {
+    color: var(--text-color) !important;
+    padding: 10px 20px;
+    text-decoration: none;
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 0 !important;
+    background: none !important;
+    text-align: right;
+    transition: background 0.2s, color 0.2s;
+}
+
+.dropdown-content a:hover {
+    background-color: rgba(67, 97, 238, 0.08) !important;
+    color: var(--primary-color) !important;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown-btn::after {
+    content: " ▾";
+    font-size: 12px;
 }
