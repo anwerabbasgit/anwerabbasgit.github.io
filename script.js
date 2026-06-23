@@ -5,7 +5,7 @@ setInterval(() => {
     if(clockEl) clockEl.innerHTML = `<i class="fa-regular fa-clock"></i> ${now.toLocaleTimeString('ar-EG')}`;
 }, 1000);
 
-// ====== 2. نظام تغيير وحفظ الوضع (Dark/Light Mode) ذكي التثبيت عبر الأيقونات ======
+// ====== 2. نظام تغيير وحفظ الوضع (Dark/Light Mode) ذكي التثبيت عبر الأيقونات الدائرية ======
 function applySavedTheme() {
     const savedTheme = localStorage.getItem('theme');
     const themeToggle = document.getElementById('themeToggle');
@@ -17,6 +17,23 @@ function applySavedTheme() {
         if(themeToggle) themeToggle.innerHTML = '<i class="fa-solid fa-moon"></i>';
     }
 }
+
+const themeToggle = document.getElementById('themeToggle');
+if(themeToggle) {
+    themeToggle.addEventListener('click', () => {
+        const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+        if (isDark) {
+            document.documentElement.removeAttribute('data-theme');
+            localStorage.setItem('theme', 'light');
+            themeToggle.innerHTML = '<i class="fa-solid fa-moon"></i>';
+        } else {
+            document.documentElement.setAttribute('data-theme', 'dark');
+            localStorage.setItem('theme', 'dark');
+            themeToggle.innerHTML = '<i class="fa-solid fa-sun"></i>';
+        }
+    });
+}
+
 
 const themeToggle = document.getElementById('themeToggle');
 if(themeToggle) {
