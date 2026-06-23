@@ -113,21 +113,36 @@ body {
     border-radius: 30px;
 }
 
+/* تحويل زر الوضع الداكن إلى أيقونة دائرية زجاجية فاخرة */
 .btn-theme {
     background: var(--card-bg);
     border: 1px solid var(--border-color);
-    color: var(--text-color);
-    padding: 8px 18px;
-    border-radius: 30px;
+    color: var(--primary-color);
+    width: 45px;
+    height: 45px;
+    border-radius: 50%; /* شكل دائري كامل */
     cursor: pointer;
-    font-weight: bold;
     box-shadow: var(--shadow);
-    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px; /* حجم الأيقونة */
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    padding: 0;
+    margin: 0;
 }
+
 .btn-theme:hover {
-    transform: translateY(-2px);
+    transform: rotate(45deg) scale(1.08); /* تأثير حركي ممتع عند تمرير الماوس أو اللمس */
     border-color: var(--primary-color);
+    background-color: rgba(67, 97, 238, 0.05);
 }
+
+[data-theme="dark"] .btn-theme {
+    color: #f59e0b; /* تحويل لون الشمس إلى الذهبي الدافئ في الوضع الداكن */
+    background-color: rgba(245, 158, 11, 0.05);
+}
+
 
 /* الهيدر الرئيسي الفاخر */
 .main-header {
