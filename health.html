@@ -9,20 +9,28 @@
 </head>
 <body onload="applySavedTheme()">
 
+        <!-- شريط التنقل المنسدل الاحترافي والموحد -->
     <nav class="navbar">
         <div class="nav-container">
             <a href="index.html" class="nav-logo"><i class="fa-solid fa-wand-magic-sparkles"></i> بوابة الأدوات</a>
             <ul class="nav-menu">
                 <li><a href="index.html">الرئيسية</a></li>
-                <li><a href="bmi.html">حاسبة الوزن</a></li>
-                <li><a href="health.html" class="active">السعرات والماء</a></li>
-                <li><a href="design.html">أدوات التصميم</a></li>
-                <li><a href="text.html">النصوص والأمان</a></li>
-                <li><a href="tools2.html">الرسم والعملات</a></li>
-                <li><a href="calculators.html">حاسبات منوعة</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-btn">جميع الأدوات</a>
+                    <div class="dropdown-content">
+                        <a href="bmi.html"><i class="fa-solid fa-heart-pulse"></i> حاسبة الوزن (BMI)</a>
+                        <a href="health.html"><i class="fa-solid fa-apple-whole"></i> السعرات والماء</a>
+                        <a href="design.html"><i class="fa-solid fa-wand-magic"></i> أدوات التصميم</a>
+                        <a href="text.html"><i class="fa-solid fa-shield-halved"></i> النصوص والأمان</a>
+                        <a href="tools2.html"><i class="fa-solid fa-palette"></i> الرسم والعملات</a>
+                        <a href="notes.html"><i class="fa-solid fa-earth-americas"></i> المفكرة والتوقيت</a>
+                        <a href="calculators.html"><i class="fa-solid fa-calculator"></i> حاسبات منوعة</a>
+                    </div>
+                </li>
             </ul>
         </div>
     </nav>
+
 
     <div class="top-bar">
         <div id="liveClock" class="live-clock"><i class="fa-regular fa-clock"></i> 00:00:00</div>
