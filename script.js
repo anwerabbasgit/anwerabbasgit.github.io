@@ -34,23 +34,6 @@ if(themeToggle) {
     });
 }
 
-
-const themeToggle = document.getElementById('themeToggle');
-if(themeToggle) {
-    themeToggle.addEventListener('click', () => {
-        const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-        if (isDark) {
-            document.documentElement.removeAttribute('data-theme');
-            localStorage.setItem('theme', 'light');
-            themeToggle.innerHTML = '<i class="fa-solid fa-moon"></i> الوضع الداكن';
-        } else {
-            document.documentElement.setAttribute('data-theme', 'dark');
-            localStorage.setItem('theme', 'dark');
-            themeToggle.innerHTML = '<i class="fa-solid fa-sun"></i> الوضع الفاتح';
-        }
-    });
-}
-
 // ====== 3. أداة حساب الـ BMI ======
 function calculateBMI() {
     const weightInput = document.getElementById('weight');
@@ -78,7 +61,7 @@ function analyzeText() {
     }
 }
 
-// ====== 5. أداة توليد ونسخ كلمة المرور ======
+// ====== 5. أداة توليد ونسخ كلمة المرور (تم إصلاح الخطأ القواعدي هنا) ======
 function generatePassword() {
     const c = "abcdefgHIJKLMNOP1234567890!@#$%&*"; let p = "";
     for (let i = 0; i < 14; i++) p += c.charAt(Math.floor(Math.random() * c.length));
@@ -112,10 +95,8 @@ if(canvas) {
     function startDraw() { drawing = true; }
     function endDraw() { drawing = false; ctx.beginPath(); }
     
-    // دالة ذكية لحساب الإحداثيات الحقيقية وإلغاء مشكلة الابتعاد (Offset) تماماً
     function getCanvasCoordinates(clientX, clientY) {
         const rect = canvas.getBoundingClientRect();
-        // ضرب الإحداثي بنسبة حجم الكامفاس البرمجي مقارنة بحجمه الفعلي المعروض على الشاشة
         return {
             x: (clientX - rect.left) * (canvas.width / rect.width),
             y: (clientY - rect.top) * (canvas.height / rect.height)
@@ -125,7 +106,6 @@ if(canvas) {
     function draw(clientX, clientY) {
         if (!drawing) return;
         
-        // جلب قيم اللون والحجم من حقول الإدخال الجديدة في الصفحة
         const colorInput = document.getElementById('brushColor');
         const widthInput = document.getElementById('brushWidth');
         
@@ -141,12 +121,10 @@ if(canvas) {
         ctx.moveTo(coords.x, coords.y);
     }
 
-    // --- حساسات الماوس للحاسبة ---
     canvas.addEventListener('mousedown', startDraw);
     canvas.addEventListener('mouseup', endDraw);
     canvas.addEventListener('mousemove', (e) => draw(e.clientX, e.clientY));
 
-    // --- حساسات اللمس الفورية للموبايل ---
     canvas.addEventListener('touchstart', (e) => {
         startDraw();
         const touch = e.touches[0];
@@ -154,7 +132,7 @@ if(canvas) {
     });
     canvas.addEventListener('touchend', endDraw);
     canvas.addEventListener('touchmove', (e) => {
-        e.preventDefault(); // منع الشاشة من الاهتزاز أو النزول أثناء الرسم بالإصبع
+        e.preventDefault();
         const touch = e.touches[0];
         draw(touch.clientX, touch.clientY);
     }, { passive: false });
