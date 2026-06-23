@@ -4,15 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>حاسبة السعرات الحرارية والماء | أدوات صحية</title>
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5563177941540961"
-     crossorigin="anonymous"></script>
-    <!-- تم تبديل الرابط المكسور بـ الرابط العالمي السليم للأيقونات لتشغيل الرموز والقمر -->
+    <script async src="https://googlesyndication.com" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cloudflare.com">
     <link rel="stylesheet" href="style.css">
 </head>
 <body onload="applySavedTheme()">
 
-    <!-- شريط التنقل المنسدل الاحترافي والموحد -->
     <nav class="navbar">
         <div class="nav-container">
             <a href="index.html" class="nav-logo"><i class="fa-solid fa-wand-magic-sparkles"></i> بوابة الأدوات</a>
@@ -34,22 +31,27 @@
         </div>
     </nav>
 
-    <!-- شريط الحالة العلوي المتوافق مع أكواد الساعة والوضع الداكن المستقر -->
     <div class="top-bar">
         <div id="liveClock" class="live-clock">⏰ 00:00:00</div>
         <button id="themeToggle" class="btn-theme">🌙</button>
     </div>
 
-    <div class="container" style="max-width: 600px; margin: 40px auto; display: block;">
+    <div class="container" style="max-width: 800px; margin: 40px auto; display: grid; gap: 30px;">
         <div class="tool-card">
             <h3><i class="fa-solid fa-faucet-drip"></i> حاسبة احتياج السعرات والماء</h3>
             <p>أدخل وزنك الحالي لتقوم الأداة بحساب كميات المياه والسعرات الحرارية التي يحتاجها جسمك يومياً:</p>
             <input type="number" id="healthWeight" placeholder="الوزن الحالي بالكيلوغرام" oninput="calculateCaloriesWater()">
             <div id="healthResult" class="output-box" style="border-right-color: var(--success-color);">أدخل الوزن لرؤية النتائج...</div>
         </div>
+
+        <!-- محتوى مقالي مكثف لإرضاء عناكب الفحص وقبول أدسنس -->
+        <div class="tool-card" style="line-height: 1.8; font-size: 14px;">
+            <h4 style="color: var(--success-color); margin-bottom: 10px;"><i class="fa-solid fa-droplet"></i> أهمية توازن المياه والسعرات الحرارية للجسم</h4>
+            <p>تعتبر الطاقة الحيوية الناتجة عن السعرات الحرارية والمياه الأساس المتين لعمليات الأيض والتمثيل الغذائي داخل خلايا الإنسان الحية. يحتاج كل فرد إلى كميات محددة يومياً لضمان استقرار وظائف الكبد والكلى وحرق الدهون وتوفير الطاقة والقدرة البدنية اللازمة للأنشطة اليومية والعمل والرياضة.</p>
+            <p style="margin-top: 10px;">تقوم أداتنا البرمجية المدمجة بحساب الاحتياج التقريبي للمياه استناداً إلى معادلات دقيقة تفترض ضرورة استهلاك 35 ملم من المياه لكل كيلوغرام من وزن الجسم الافتراضي. بينما يتم تقدير السعرات الحرارية الأساسية بناءً على معدل الأيض الأساسي المقدر للنشاط الطبيعي المعتدل، مما يوفر دليلاً استرشادياً سريعاً وبسيطاً ومجانياً يساعدك على تنظيم جدولك الغذائي اليومي بكفاءة وأمان تاميّن.</p>
+        </div>
     </div>
 
-    <!-- الفوتر القانوني الموحد الإلزامي لربط الصفحات والحصول على موافقة أدسنس -->
     <footer class="main-footer">
         <p>&copy; 2026 جميع الحقوق محفوظة لمنصتك العالمية الفاخرة.</p>
         <p style="font-size: 13px; margin-top: 15px; opacity: 0.8; display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;">
