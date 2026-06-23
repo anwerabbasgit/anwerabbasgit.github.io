@@ -5,7 +5,7 @@ setInterval(() => {
     if(clockEl) clockEl.innerHTML = `<i class="fa-regular fa-clock"></i> ${now.toLocaleTimeString('ar-EG')}`;
 }, 1000);
 
-// ====== 2. نظام تغيير وحفظ الوضع (Dark/Light Mode) ذكي التثبيت عبر الأيقونات الدائرية ======
+// ====== 2. نظام تغيير وحفظ الوضع (Dark/Light Mode) ذكي التثبيت ======
 function applySavedTheme() {
     const savedTheme = localStorage.getItem('theme');
     const themeToggle = document.getElementById('themeToggle');
@@ -17,23 +17,6 @@ function applySavedTheme() {
         if(themeToggle) themeToggle.innerHTML = '<i class="fa-solid fa-moon"></i>';
     }
 }
-
-const themeToggle = document.getElementById('themeToggle');
-if(themeToggle) {
-    themeToggle.addEventListener('click', () => {
-        const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-        if (isDark) {
-            document.documentElement.removeAttribute('data-theme');
-            localStorage.setItem('theme', 'light');
-            themeToggle.innerHTML = '<i class="fa-solid fa-moon"></i>';
-        } else {
-            document.documentElement.setAttribute('data-theme', 'dark');
-            localStorage.setItem('theme', 'dark');
-            themeToggle.innerHTML = '<i class="fa-solid fa-sun"></i>';
-        }
-    });
-}
-
 
 const themeToggle = document.getElementById('themeToggle');
 if(themeToggle) {
@@ -78,7 +61,7 @@ function analyzeText() {
     }
 }
 
-// ====== 5. أداة توليد ونسخ كلمة المرور (تم إصلاح الخطأ القواعدي هنا) ======
+// ====== 5. أداة توليد ونسخ كلمة المرور ======
 function generatePassword() {
     const c = "abcdefgHIJKLMNOP1234567890!@#$%&*"; let p = "";
     for (let i = 0; i < 14; i++) p += c.charAt(Math.floor(Math.random() * c.length));
@@ -103,71 +86,38 @@ function convertCurrency() {
         else { iqdEl.innerText = "0"; egpEl.innerText = "0"; }
     }
 }
-// ====== 7. أداة لوحة الرسم الاحترافية المطورة (معادلة تصحيح الإحداثيات والتحكم) ======
+// ====== 7. أداة لوحة الرسم الاحترافية للشاشات واللمس ======
 const canvas = document.getElementById('paintCanvas');
 if(canvas) {
-    const ctx = canvas.getContext('2d');
-    let drawing = false;
-
+    const ctx = canvas.getContext('2d'); let drawing = false;
     function startDraw() { drawing = true; }
     function endDraw() { drawing = false; ctx.beginPath(); }
-    
     function getCanvasCoordinates(clientX, clientY) {
         const rect = canvas.getBoundingClientRect();
-        return {
-            x: (clientX - rect.left) * (canvas.width / rect.width),
-            y: (clientY - rect.top) * (canvas.height / rect.height)
-        };
+        return { x: (clientX - rect.left) * (canvas.width / rect.width), y: (clientY - rect.top) * (canvas.height / rect.height) };
     }
-
     function draw(clientX, clientY) {
         if (!drawing) return;
-        
-        const colorInput = document.getElementById('brushColor');
-        const widthInput = document.getElementById('brushWidth');
-        
+        const colorInput = document.getElementById('brushColor'); const widthInput = document.getElementById('brushWidth');
         ctx.lineWidth = widthInput ? widthInput.value : 3;
         ctx.strokeStyle = colorInput ? colorInput.value : '#4361ee';
-        ctx.lineCap = 'round';
-        ctx.lineJoin = 'round';
-
+        ctx.lineCap = 'round'; ctx.lineJoin = 'round';
         const coords = getCanvasCoordinates(clientX, clientY);
-        ctx.lineTo(coords.x, coords.y);
-        ctx.stroke();
-        ctx.beginPath();
-        ctx.moveTo(coords.x, coords.y);
+        ctx.lineTo(coords.x, coords.y); ctx.stroke(); ctx.beginPath(); ctx.moveTo(coords.x, coords.y);
     }
-
-    canvas.addEventListener('mousedown', startDraw);
-    canvas.addEventListener('mouseup', endDraw);
+    canvas.addEventListener('mousedown', startDraw); canvas.addEventListener('mouseup', endDraw);
     canvas.addEventListener('mousemove', (e) => draw(e.clientX, e.clientY));
-
-    canvas.addEventListener('touchstart', (e) => {
-        startDraw();
-        const touch = e.touches[0];
-        draw(touch.clientX, touch.clientY);
-    });
+    canvas.addEventListener('touchstart', (e) => { startDraw(); const t = e.touches; draw(t.clientX, t.clientY); });
     canvas.addEventListener('touchend', endDraw);
-    canvas.addEventListener('touchmove', (e) => {
-        e.preventDefault();
-        const touch = e.touches[0];
-        draw(touch.clientX, touch.clientY);
-    }, { passive: false });
+    canvas.addEventListener('touchmove', (e) => { e.preventDefault(); const t = e.touches; draw(t.clientX, t.clientY); }, { passive: false });
 }
-
-function clearCanvas() { 
-    const cv = document.getElementById('paintCanvas'); 
-    if(cv) cv.getContext('2d').clearRect(0, 0, cv.width, cv.height); 
-}
-
+function clearCanvas() { const cv = document.getElementById('paintCanvas'); if(cv) cv.getContext('2d').clearRect(0, 0, cv.width, cv.height); }
 function downloadCanvas() {
     const cv = document.getElementById('paintCanvas');
     if(cv) {
         try {
-            const dataUrl = cv.toDataURL('image/png');
-            const lnk = document.createElement('a');
-            lnk.download = 'signature.png'; lnk.href = dataUrl;
-            document.body.appendChild(lnk); lnk.click(); document.body.removeChild(lnk);
+            const dataUrl = cv.toDataURL('image/png'); const lnk = document.createElement('a');
+            lnk.download = 'signature.png'; lnk.href = dataUrl; document.body.appendChild(lnk); lnk.click(); document.body.removeChild(lnk);
         } catch (e) { alert("حدث خطأ أثناء تحميل الرسمة، يرجى المحاولة مرة أخرى."); }
     }
 }
@@ -181,59 +131,44 @@ function loadNotes() {
 function saveNotes() {
     const txtArea = document.getElementById('notesArea');
     if(txtArea) {
-        const txt = txtArea.value;
-        localStorage.setItem('userNotes', txt);
+        const txt = txtArea.value; localStorage.setItem('userNotes', txt);
         const status = document.getElementById('saveStatus');
-        if(status) {
-            status.innerText = "✅ تم الحفظ تلقائياً في ذاكرة المتصفح الآمنة!";
-            setTimeout(() => status.innerText = "", 3000);
-        }
+        if(status) { status.innerText = "✅ تم الحفظ تلقائياً!"; setTimeout(() => status.innerText = "", 3000); }
     }
 }
 
 // ====== 9. محول التوقيت العالمي الفوري ======
 function convertGlobalTime() {
-    const timeInput = document.getElementById('localTimeInput');
-    const resultDiv = document.getElementById('timeZoneResults');
+    const timeInput = document.getElementById('localTimeInput'); const resultDiv = document.getElementById('timeZoneResults');
     if(timeInput && resultDiv) {
-        const timeVal = timeInput.value;
-        if(!timeVal) return;
-        const [hours, minutes] = timeVal.split(':');
-        const d = new Date(); d.setHours(hours); d.setMinutes(minutes);
+        const timeVal = timeInput.value; if(!timeVal) return;
+        const [hours, minutes] = timeVal.split(':'); const d = new Date(); d.setHours(hours); d.setMinutes(minutes);
         const fmt = (zone) => d.toLocaleTimeString('ar-EG', { timeZone: zone, hour: '2-digit', minute: '2-digit' });
-        resultDiv.innerHTML = `
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px; font-size: 14px;">
-                <div style="padding: 10px; background: var(--bg-color); border-radius: 8px;">🕋 مكة: <b>${fmt('Asia/Riyadh')}</b></div>
-                <div style="padding: 10px; background: var(--bg-color); border-radius: 8px;">🇬🇧 لندن: <b>${fmt('Europe/London')}</b></div>
-                <div style="padding: 10px; background: var(--bg-color); border-radius: 8px;">🇺🇸 نيويورك: <b>${fmt('America/New_York')}</b></div>
-                <div style="padding: 10px; background: var(--bg-color); border-radius: 8px;">🌐 غرينتش: <b>${fmt('UTC')}</b></div>
-            </div>`;
+        resultDiv.innerHTML = `<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px; font-size: 14px;">
+            <div style="padding: 10px; background: var(--bg-color); border-radius: 8px;">🕋 مكة: <b>${fmt('Asia/Riyadh')}</b></div>
+            <div style="padding: 10px; background: var(--bg-color); border-radius: 8px;">🇬🇧 لندن: <b>${fmt('Europe/London')}</b></div>
+            <div style="padding: 10px; background: var(--bg-color); border-radius: 8px;">🇺🇸 نيويورك: <b>${fmt('America/New_York')}</b></div>
+            <div style="padding: 10px; background: var(--bg-color); border-radius: 8px;">🌐 غرينتش: <b>${fmt('UTC')}</b></div>
+        </div>`;
     }
 }
 
 // ====== 10. حاسبة النسبة المئوية ======
 function calculatePercentage() {
-    const percentInput = document.getElementById('percentNum');
-    const totalInput = document.getElementById('totalNum');
-    const resultDiv = document.getElementById('percentResult');
+    const percentInput = document.getElementById('percentNum'); const totalInput = document.getElementById('totalNum'); const resultDiv = document.getElementById('percentResult');
     if(percentInput && totalInput && resultDiv) {
         const p = parseFloat(percentInput.value); const t = parseFloat(totalInput.value);
-        if(!isNaN(p) && !isNaN(t) && t !== 0) {
-            resultDiv.innerText = `${p}% من العدد ${t} هي: ${((p / 100) * t).toFixed(2)}`;
-        }
+        if(!isNaN(p) && !isNaN(t) && t !== 0) { resultDiv.innerText = `${p}% من العدد ${t} هي: ${((p / 100) * t).toFixed(2)}`; }
     }
 }
 
 // ====== 11. حاسبة العمر الدقيق ======
 function calculateAge() {
-    const birthInput = document.getElementById('birthDateInput');
-    const resultDiv = document.getElementById('ageResult');
+    const birthInput = document.getElementById('birthDateInput'); const resultDiv = document.getElementById('ageResult');
     if(birthInput && resultDiv) {
         if(!birthInput.value) return;
         const birthDate = new Date(birthInput.value); const now = new Date();
-        let years = now.getFullYear() - birthDate.getFullYear();
-        let months = now.getMonth() - birthDate.getMonth();
-        let days = now.getDate() - birthDate.getDate();
+        let years = now.getFullYear() - birthDate.getFullYear(); let months = now.getMonth() - birthDate.getMonth(); let days = now.getDate() - birthDate.getDate();
         if (days < 0) { months--; const prevMonth = new Date(now.getFullYear(), now.getMonth(), 0); days += prevMonth.getDate(); }
         if (months < 0) { years--; months += 12; }
         const daysOfWeek = ["الأحد", "الإثنين", "الثلاثاء", "الأربعاء", "الخميس", "الجمعة", "السبت"];
@@ -243,11 +178,9 @@ function calculateAge() {
 
 // ====== 12. حاسبة السعرات والماء ======
 function calculateCaloriesWater() {
-    const weight = parseFloat(document.getElementById('healthWeight').value);
-    const resultDiv = document.getElementById('healthResult');
+    const weight = parseFloat(document.getElementById('healthWeight').value); const resultDiv = document.getElementById('healthResult');
     if(weight && resultDiv) {
-        const water = (weight * 0.035).toFixed(1);
-        const calories = Math.round(weight * 24 * 1.2);
+        const water = (weight * 0.035).toFixed(1); const calories = Math.round(weight * 24 * 1.2);
         resultDiv.innerHTML = `💪 تحتاج يومياً حوالي: <b>${calories} سعرة حرارية</b> <br> 💧 وكمية ماء لا تقل عن: <b>${water} لتر</b>`;
     }
 }
@@ -255,26 +188,16 @@ function calculateCaloriesWater() {
 // ====== 13. مولد ومحول الألوان العشوائية ======
 function generateRandomColor() {
     const randomColor = '#' + Math.floor(Math.random()*16777215).toString(16).padStart(6, '0');
-    const box = document.getElementById('colorBox');
-    const code = document.getElementById('colorCode');
-    if(box && code) {
-        box.style.backgroundColor = randomColor;
-        code.innerText = `HEX: ${randomColor}`;
-    }
+    const box = document.getElementById('colorBox'); const code = document.getElementById('colorCode');
+    if(box && code) { box.style.backgroundColor = randomColor; code.innerText = `HEX: ${randomColor}`; }
 }
 
 // ====== 14. ميزة نظام البحث الفوري بالواجهة ======
 function searchTools() {
-    const query = document.getElementById('toolSearch').value.toLowerCase();
-    const cards = document.querySelectorAll('.tool-card');
+    const query = document.getElementById('toolSearch').value.toLowerCase(); const cards = document.querySelectorAll('.tool-card');
     cards.forEach(card => {
-        const title = card.querySelector('h3').innerText.toLowerCase();
-        const desc = card.querySelector('p').innerText.toLowerCase();
-        if(title.includes(query) || desc.includes(query)) {
-            card.style.display = "block";
-        } else {
-            card.style.display = "none";
-        }
+        const title = card.querySelector('h3').innerText.toLowerCase(); const desc = card.querySelector('p').innerText.toLowerCase();
+        if(title.includes(query) || desc.includes(query)) { card.style.display = "block"; } else { card.style.display = "none"; }
     });
 }
 
